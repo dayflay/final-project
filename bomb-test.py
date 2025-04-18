@@ -52,10 +52,10 @@ class Lcd(Frame):
         self._ltoggles.grid(row=4, column=0, columnspan=2, sticky=W)
         # the pause button (pauses the timer)
         self._lpause = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 24), text="Pause", command=self.pause)
-        self._lpause.grid(row=5, column=0, sticky=W, padx=25, pady=40)
+        self._lpause.grid(row=5, column=0, sticky=W, padx=25, pady=30)
         # the quit button
         self._lquit = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 24), text="Quit", command=self.quit)
-        self._lquit.grid(row=5, column=1, sticky=W, padx=25, pady=40)
+        self._lquit.grid(row=5, column=0, sticky=W, padx=25, pady=30)
 
     # binds the 7-segment display component to the GUI
     def setTimer(self, timer):
