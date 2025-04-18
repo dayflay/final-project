@@ -241,7 +241,7 @@ class Wires(PhaseThread):
             return "DEFUSED"
         else:
             # TODO
-            pass
+            return self.value
 
 # the pushbutton phase
 class Button(PhaseThread):
