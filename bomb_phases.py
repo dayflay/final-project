@@ -228,18 +228,20 @@ class Keypad(PhaseThread):
 # the jumper wires phase
 class Wires(PhaseThread):
     def __init__(self, pins, component, target, name="Wires"):
-        super().__init__(name, component, target)
+        super().__init__(name = name, component = component, target = target)
         self._value = ""
+        self._pins = pin
 
     # runs the thread
     def run(self):
         # TODO
         self._running = True
-        while (True):
+        while (self._running):
             # get the jumper wire states (0->False, 1->True)
-            self._value = "".join([str(int(self._component.pin.value)) for pin in self._pins])
-            sleep(0.1)
-        self._running = False
+            self._value = "".join([str(int(pin.value)) for pin in self._pins])
+            if self._value == self._target:
+                sleep(0.1)
+      #  self._running = False
 
     # returns the jumper wires state as a string
     def __str__(self):
