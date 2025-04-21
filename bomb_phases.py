@@ -227,7 +227,7 @@ class Keypad(PhaseThread):
 
 # the jumper wires phase
 class Wires(PhaseThread):
-    def __init__(self, component, target, name="Wires"):
+    def __init__(self, pins, component, target, name="Wires"):
         super().__init__(name, component, target)
         self._pins = pins
         self._value =""
