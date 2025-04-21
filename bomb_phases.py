@@ -313,15 +313,18 @@ class Toggles(PhaseThread):
     # runs the thread
     def run(self):
         self._running = True
-        while (True):
+        while (self._running):
             # get the toggle switch values (0->False, 1->True)
             self._value = "".join([str(int(pin.value)) for pin in self._pins])
+            #check if value matches target
+            if self._value == self._target:
+                self._defused = True
             sleep(0.1)
-        self._running = False
+#       self._running = False
 
     # returns the toggle switches state as a string
     def __str__(self):
-        if (self._defused):
+        if self._defused:
             return "DEFUSED"
         else:
             return f"{self._value}/{int(self._value, 2)}"
