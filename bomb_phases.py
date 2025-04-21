@@ -229,21 +229,23 @@ class Keypad(PhaseThread):
 class Wires(PhaseThread):
     def __init__(self, component, target, name="Wires"):
         super().__init__(name, component, target)
-       
+        #self._value = ""
        
 
     # runs the thread
     def run(self):
         # TODO
         pass
+        #self._running = True
+        #while(self._running == True):
 
-    # returns the jumper wires state as a string
+    # returns the jumper wires' state as a binary string
     def __str__(self):
         if (self._defused):
             return "DEFUSED"
         else:
             # TODO
-            #return
+            #return self._value
 
 # the pushbutton phase
 class Button(PhaseThread):
