@@ -229,6 +229,7 @@ class Keypad(PhaseThread):
 class Wires(PhaseThread):
     def __init__(self, component, target, name="Wires"):
         super().__init__(name, component, target)
+        self._pins = pins
 
     # runs the thread
     def run(self):
