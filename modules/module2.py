@@ -10,3 +10,9 @@ class module2(aModule):
 	def __init__(self):
 		super().__init__()
 		self.name = "Trebek"
+
+	def solve(self) -> bool:
+		return True
+
+	def update(self, switches, button, wires, keypad, timer):
+		pass

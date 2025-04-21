@@ -16,6 +16,11 @@ NUM_PHASES = 4       # the total number of initial active bomb phases
 # imports
 from random import randint, shuffle, choice
 from string import ascii_uppercase
+from modules import *
+
+ALL_MODULES = [module1(), module2()]
+print(ALL_MODULES[0])
+
 if (RPi):
     import board
     from adafruit_ht16k33.segments import Seg7x4

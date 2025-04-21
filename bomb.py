@@ -60,6 +60,9 @@ def setup_phases():
     button.start()
     toggles.start()
 
+    # create a seed for the modules to work upon
+
+
 # checks the phase threads
 def check_phases():
     global active_phases

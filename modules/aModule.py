@@ -8,6 +8,9 @@ class aModule(ABC):
 	def __init__(self):
 		self.name = ""
 
+	def __str__(self):
+		return self.name
+
 	@abstractmethod
 	def update(self, switches, button, wires, keypad, timer):
 		"""
