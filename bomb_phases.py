@@ -230,7 +230,7 @@ class Wires(PhaseThread):
     def __init__(self, pins, component, target, name="Wires"):
         super().__init__(name = name, component = component, target = target)
         self._value = ""
-        self._pins = pin
+        self._pins = pins
 
     # runs the thread
     def run(self):
