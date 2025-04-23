@@ -316,17 +316,23 @@ class Button(PhaseThread):
 
 # the toggle switches phase
 class Toggles(PhaseThread):
-    def __init__(self, pins, component, target, name="Toggles"):
+    def __init__(self, component, target, name="Toggles"):
         super().__init__(name = name, component = component, target = target)
         self._value = ""
         # the toggle switch pins
-        self._pins = pins
+        self._pins = self._component
 
     # runs the thread
     def run(self):
         self._running = True
         while (self._running):
             # get the toggle switch values (0->False, 1->True)
+            for pin in self._component:
+                if pin.value:  # True means HIGH
+                    self._value += "1"
+                else:
+                    self._value += "0"
+            
             self._value = "".join([str(int(pin.value)) for pin in self._pins])
             #check if value matches target
             if self._value == self._target:
