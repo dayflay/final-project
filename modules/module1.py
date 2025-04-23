@@ -8,9 +8,14 @@ class module1(aModule):
 	def __init__(self):
 		super().__init__()
 		self.name = "The Dead Man's Hand"
+		self.points = 0
 
 	def solve(self) -> bool:
-		return True
+		if self.points >= 10: return True
+		return False
 
 	def update(self, switches, button, wires, keypad, timer):
-		pass
+		if self.switches == "0101":
+			self.points += 1
+
+		self.solve()
