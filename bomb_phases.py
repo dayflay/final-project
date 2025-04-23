@@ -234,8 +234,23 @@ class Wires(PhaseThread):
 
     # runs the thread
     def run(self):
+        self._running = True
+        while self._running:
+            # Read the state of each pin (HIGH or LOW) and build a binary string
+            self._value = ""
+            for pin in self._component:
+                if pin.value:  # True means HIGH
+                    self._value += "1"
+                else:
+                    self._value += "0"
+
+            # Check if it matches the target
+            if self._value == self._target:
+                self._defused = True
+                self._running = False  # stop the loop if defused
+            time.sleep(0.1)  # delay to avoid constant polling
         # TODO
-        pass
+        #pass
         #self._running = True
         #while(self._running == True):
 
