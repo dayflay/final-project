@@ -248,7 +248,7 @@ class Wires(PhaseThread):
             if self._value == self._target:
                 self._defused = True
                 self._running = False  # stop the loop if defused
-            time.sleep(0.1)  # delay to avoid constant polling
+            sleep(0.1)  # delay to avoid constant polling
         # TODO
         #pass
         #self._running = True
