@@ -12,7 +12,7 @@ class module0(aModule):
 		self.strikes_left = 5
 
 	def solve(self) -> bool:
-		if self.activePhases > 0: return False
+		if self.active_phases > 0: return False
 		return True
 
 	def update(self, switches, button, wires, keypad, timer, gui):
