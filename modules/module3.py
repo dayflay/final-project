@@ -9,3 +9,11 @@ class module3(aModule):
         super().__init__()
         self.name = 'Mine'
 
+    def update(self, switches, button, wires, keypad, timer, gui):
+        if button.pressed:
+
+
+        # if time is a specific time:
+        # while button._pressed == True:
+        # solve toggles
+
