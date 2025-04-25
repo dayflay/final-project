@@ -57,7 +57,8 @@ def setup_phases():
 
     # create a queue for the modules to work upon
     queue = []
-    possible_mods = ALL_MODULES.shuffle()
+    possible_mods = ALL_MODULES
+    shuffle(possible_mods)
     difficulty = 1
 
     for i in range(0, difficulty - 1):
