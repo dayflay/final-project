@@ -251,7 +251,7 @@ class Wires(PhaseThread):
 
     # returns the jumper wires' state as a binary string
     def __str__(self):
-        if (self._defused):
+        if self._defused:
             return "DEFUSED"
         else:
             return self._value
