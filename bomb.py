@@ -8,6 +8,8 @@
 from bomb_configs import *
 # import the phases
 from bomb_phases import *
+# randomization library
+from random import shuffle
 
 ###########
 # functions
@@ -36,7 +38,7 @@ def bootup(n=0):
 
 # sets up the phase threads
 def setup_phases():
-    global timer, keypad, wires, button, toggles
+    global timer, keypad, wires, button, toggles, queue, current_module
     
     # setup the timer thread
     timer = Timer(component_7seg, COUNTDOWN)
@@ -53,14 +55,23 @@ def setup_phases():
     # setup the toggle switches thread
     toggles = Toggles(component_toggles, toggles_target)
 
+    # create a queue for the modules to work upon
+    queue = []
+    possible_mods = ALL_MODULES
+    shuffle(possible_mods)
+    difficulty = 1
+
+    for i in range(0, difficulty - 1):
+        queue.append(possible_mods[i])
+
+    current_module = 0
+
     # start the phase threads
     timer.start()
     keypad.start()
     wires.start()
     button.start()
     toggles.start()
-
-    # create a seed for the modules to work upon
 
 
 # checks the phase threads
@@ -78,87 +89,12 @@ def check_phases():
         gui.after(100, gui.conclusion, False)
         # don't check any more phases
         return
-    # check the keypad
-    if (keypad._running):
-        # update the GUI
-        gui._lkeypad["text"] = f"Combination: {keypad._value}"
-        # the phase is defused -> stop the thread
-        # if (keypad._defused):
-        #     keypad._running = False
-        #     active_phases -= 1
-        # # the phase has failed -> strike
-        # elif (keypad._failed):
-        #     strike()
-        #     # reset the keypad
-        #     keypad._failed = False
-        #     keypad._value = ""
-    # check the wires
-    if (wires._running):
-        # update the GUI
-        gui._lwires["text"] = f"Wires: {wires}"
-        # the phase is defused -> stop the thread
-        if (wires._defused):
-            wires._running = False
-            active_phases -= 1
-        # the phase has failed -> strike
-        elif (wires._failed):
-            strike()
-            # reset the wires
-            wires._failed = False
-    # check the button
-    if (button._running):
-        # update the GUI
-        gui._lbutton["text"] = f"Button: {button}"
-        # the phase is defused -> stop the thread
-        if (button._defused):
-            button._running = False
-            active_phases -= 1
-        # the phase has failed -> strike
-        elif (button._failed):
-            strike()
-            # reset the button
-            button._failed = False
-    # check the toggles
-    if (toggles._running):
-        # update the GUI
-        gui._ltoggles["text"] = f"Toggles: {toggles}"
-        # the phase is defused -> stop the thread
-        if (toggles._defused):
-            toggles._running = False
-            active_phases -= 1
-        # the phase has failed -> strike
-        elif (toggles._failed):
-            strike()
-            # reset the toggles
-            toggles._failed = False
 
-    # note the strikes on the GUI
-    gui._lstrikes["text"] = f"Strikes left: {strikes_left}"
-    # too many strikes -> explode!
-    if (strikes_left == 0):
-        # turn off the bomb and render the conclusion GUI
-        turn_off()
-        gui.after(1000, gui.conclusion, False)
-        # stop checking phases
-        return
-
-    # the bomb has been successfully defused!
-    if (active_phases == 0):
-        # turn off the bomb and render the conclusion GUI
-        turn_off()
-        gui.after(100, gui.conclusion, True)
-        # stop checking phases
-        return
+    queue[current_module].update(toggles, button, wires, keypad, timer, gui)
+    print(queue[current_module].solve())
 
     # check the phases again after a slight delay
     gui.after(100, check_phases)
-
-# handles a strike
-def strike():
-    global strikes_left
-    
-    # note the strike
-    strikes_left -= 1
 
 # turns off the bomb
 def turn_off():

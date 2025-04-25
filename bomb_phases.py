@@ -281,23 +281,7 @@ class Button(PhaseThread):
         while (self._running):
             # get the pushbutton's state
             self._value = self._component.value
-            # it is pressed
-            if (self._value):
-                # note it
-                self._pressed = True
-            # it is released
-            else:
-                # was it previously pressed?
-                if (self._pressed):
-                    # check the release parameters
-                    # for R, nothing else is needed
-                    # for G or B, a specific digit must be in the timer (sec) when released
-                    if (not self._target or self._target in self._timer._sec):
-                        self._defused = True
-                    else:
-                        self._failed = True
-                    # note that the pushbutton was released
-                    self._pressed = False
+            self._pressed = self._value
             sleep(0.1)
 
     # returns the pushbutton's state as a string
