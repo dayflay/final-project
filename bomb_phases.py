@@ -229,7 +229,6 @@ class Keypad(PhaseThread):
 class Wires(PhaseThread):
     def __init__(self, component, target, name="Wires"):
         super().__init__(name, component, target)
-        #self._value = ""
        
 
     # runs the thread
@@ -249,18 +248,12 @@ class Wires(PhaseThread):
                 self._defused = True
                 self._running = False  # stop the loop if defused
             sleep(0.1)  # delay to avoid constant polling
-        # TODO
-        #pass
-        #self._running = True
-        #while(self._running == True):
 
     # returns the jumper wires' state as a binary string
     def __str__(self):
         if (self._defused):
             return "DEFUSED"
         else:
-            # TODO
-            
             return self._value
 
 # the pushbutton phase
