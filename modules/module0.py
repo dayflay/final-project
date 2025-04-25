@@ -8,7 +8,7 @@ class module0(aModule):
 		super().__init__()
 		self.name = "Example Module"
 		self.solved = False
-		self.activePhases = 4
+		self.active_phases = 4
 		self.strikes_left = 5
 
 	def solve(self) -> bool:
@@ -51,10 +51,10 @@ class module0(aModule):
 			# the phase is defused -> stop the thread
 			if (button._defused):
 				button._running = False
-				active_phases -= 1
+				self.active_phases -= 1
 			# the phase has failed -> strike
 			elif (button._failed):
-				strike()
+				self.strike()
 				# reset the button
 				button._failed = False
 		# check the toggles
