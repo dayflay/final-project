@@ -8,11 +8,15 @@ class module0(aModule):
 		super().__init__()
 		self.name = "Example Module"
 		self.solved = False
+		self.activePhases = 4
+		self.strikes_left = 5
 
 	def solve(self) -> bool:
-		return False
+		if self.activePhases > 0: return False
+		return True
 
 	def update(self, switches, button, wires, keypad, timer, gui):
+		toggles = switches
 		# check the keypad
 		if (keypad._running):
 			# update the GUI
@@ -34,10 +38,10 @@ class module0(aModule):
 			# the phase is defused -> stop the thread
 			if (wires._defused):
 				wires._running = False
-				active_phases -= 1
+				self.active_phases -= 1
 			# the phase has failed -> strike
 			elif (wires._failed):
-				strike()
+				self.strike()
 				# reset the wires
 				wires._failed = False
 		# check the button
@@ -60,29 +64,32 @@ class module0(aModule):
 			# the phase is defused -> stop the thread
 			if (toggles._defused):
 				toggles._running = False
-				active_phases -= 1
+				self.active_phases -= 1
 			# the phase has failed -> strike
 			elif (toggles._failed):
-				strike()
+				self.strike()
 				# reset the toggles
 				toggles._failed = False
 
 		# note the strikes on the GUI
-		gui._lstrikes["text"] = f"Strikes left: {strikes_left}"
+		gui._lstrikes["text"] = f"Strikes left: {self.strikes_left}"
 		# too many strikes -> explode!
-		if (strikes_left == 0):
+		if (self.strikes_left == 0):
 			# turn off the bomb and render the conclusion GUI
-			turn_off()
+			#turn_off()
 			gui.after(1000, gui.conclusion, False)
 			# stop checking phases
 			return
 
-		# the bomb has been successfully defused!
-		if (active_phases == 0):
-			# turn off the bomb and render the conclusion GUI
-			turn_off()
-			gui.after(100, gui.conclusion, True)
-			# stop checking phases
-			return
+		# # the bomb has been successfully defused!
+		# if (active_phases == 0):
+		# 	# turn off the bomb and render the conclusion GUI
+		# 	turn_off()
+		# 	gui.after(100, gui.conclusion, True)
+		# 	# stop checking phases
+		# 	return
 
 		self.solve()
+
+	def strike(self):
+		self.strikes_left -= 1

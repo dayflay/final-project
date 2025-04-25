@@ -95,13 +95,6 @@ def check_phases():
     # check the phases again after a slight delay
     gui.after(100, check_phases)
 
-# handles a strike
-def strike():
-    global strikes_left
-    
-    # note the strike
-    strikes_left -= 1
-
 # turns off the bomb
 def turn_off():
     # stop all threads
