@@ -12,14 +12,15 @@ class aModule(ABC):
 		return self.name
 
 	@abstractmethod
-	def update(self, switches, button, wires, keypad, timer):
+	def update(self, switches, button, wires, keypad, timer, screen):
 		"""
 		Determines the current inputs on the bomb for later use.
-		:param switches:
-		:param button:
-		:param wires:
-		:param keypad:
-		:param timer:
+		:param switches: the state of the switches
+		:param button: the state of the button
+		:param wires: the state of the wires
+		:param keypad: the combo of the keypad
+		:param timer: the current time
+		:param screen: the screen object
 		:return:
 		"""
 

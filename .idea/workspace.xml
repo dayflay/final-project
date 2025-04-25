@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="toggles class">
-      <change afterPath="$PROJECT_DIR$/modules/module3.py" afterDir="false" />
+    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="toggles class super()">
+      <change afterPath="$PROJECT_DIR$/modules/module0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/final-project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/final-project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bomb.py" beforeDir="false" afterPath="$PROJECT_DIR$/bomb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bomb_configs.py" beforeDir="false" afterPath="$PROJECT_DIR$/bomb_configs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/aModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/aModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/module1.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/module1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743614311055</updated>
       <workItem from="1745255121223" duration="625000" />
-      <workItem from="1745255754575" duration="3309000" />
-      <workItem from="1745427716636" duration="1265000" />
+      <workItem from="1745255754575" duration="2349000" />
     </task>
     <task id="LOCAL-00001" summary="Create abstract class for modules">
       <option name="closed" value="true" />
@@ -131,15 +137,7 @@
       <option name="project" value="LOCAL" />
       <updated>1745257707050</updated>
     </task>
-    <task id="LOCAL-00007" summary="toggles class">
-      <option name="closed" value="true" />
-      <created>1745258134053</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1745258134053</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,8 +161,7 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
     <MESSAGE value="bomb phases -&gt; toggles class" />
     <MESSAGE value="toggles class super()" />
-    <MESSAGE value="toggles class" />
-    <option name="LAST_COMMIT_MESSAGE" value="toggles class" />
+    <option name="LAST_COMMIT_MESSAGE" value="toggles class super()" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/final_project$bomb.coverage" NAME="bomb Coverage Results" MODIFIED="1744997988259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

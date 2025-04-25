@@ -18,7 +18,7 @@ from random import randint, shuffle, choice
 from string import ascii_uppercase
 from modules import *
 
-ALL_MODULES = [module1(), module2()]
+ALL_MODULES = [module0()]
 print(ALL_MODULES[0])
 
 if (RPi):
