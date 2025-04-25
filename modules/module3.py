@@ -11,7 +11,7 @@ class module3(aModule):
 
     def update(self, switches, button, wires, keypad, timer, gui):
         if button.pressed:
-
+            pass
 
         # if time is a specific time:
         # while button._pressed == True:
