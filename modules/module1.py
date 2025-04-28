@@ -17,5 +17,3 @@ class module1(aModule):
 	def update(self, switches, button, wires, keypad, timer, screen):
 		if switches == "0101":
 			self.points += 1
-
-		self.solve()

@@ -14,5 +14,5 @@ class module2(aModule):
 	def solve(self) -> bool:
 		return True
 
-	def update(self, switches, button, wires, keypad, timer):
+	def update(self, switches, button, wires, keypad, timer, screen):
 		pass
