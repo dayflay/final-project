@@ -302,7 +302,7 @@ class Toggles(PhaseThread):
     # runs the thread
     def run(self):
         self._running = True
-        while (self._running):
+        while self._running:
             # get the toggle switch values (0->False, 1->True)
             for pin in self._component:
                 if pin.value:  # True means HIGH
