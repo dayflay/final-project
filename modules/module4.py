@@ -19,9 +19,17 @@ class Module4(aModule):
     def update(self, switches, button, wires, keypad, timer, screen):
         if wires == "01101":
             solveProgress += 1
+        else:
+            return False
         if switches == "1010":
             solveProgress += 1
+        else:
+            return False
         if button == button._pressed():
             solveProgress += 1
+        else:
+            return False
         if keypad == "1234":
             solveProgress += 1
+        else:
+            return False
