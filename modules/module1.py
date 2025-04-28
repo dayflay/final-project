@@ -14,7 +14,7 @@ class module1(aModule):
 		if self.points >= 10: return True
 		return False
 
-	def update(self, switches, button, wires, keypad, timer):
+	def update(self, switches, button, wires, keypad, timer, screen):
 		if switches == "0101":
 			self.points += 1
 
