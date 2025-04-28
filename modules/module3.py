@@ -30,14 +30,14 @@ class module3(aModule):
 
     def update(self, switches, button, wires, keypad, timer, gui):
         if self.start_time is None:
-            self.start_time = timer.value
+            self.start_time = timer._value
 
         self.toggles = switches
 
-        if button.pressed:
+        if button._pressed:
             self.time_pressed += 0.1
         else:
-            timer.value -= 0.2
+            timer._value -= 0.2
 
         if self.solve():
             self._defused = True
