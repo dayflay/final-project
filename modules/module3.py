@@ -30,7 +30,7 @@ class module3(aModule):
 
     def update(self, switches, button, wires, keypad, timer, gui):
         if self.start_time is None:
-            self.start_time = timer.value
+            self.start_time = timer._value
 
         self.toggles = switches
 
