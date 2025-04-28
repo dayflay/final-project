@@ -64,6 +64,7 @@ def setup_phases():
     for i in range(0, difficulty - 1):
         queue.append(possible_mods[i])
 
+    global current_module
     current_module = 0
 
     # start the phase threads
@@ -92,6 +93,13 @@ def check_phases():
 
     queue[current_module].update(toggles, button, wires, keypad, timer, gui)
     print(queue[current_module].solve())
+
+    if queue[current_module].solve():
+        if current_module == (len(queue) - 1): # final module
+            pass # YOU WIN!!!
+
+        else:
+            current_module += 1
 
     # check the phases again after a slight delay
     gui.after(100, check_phases)
