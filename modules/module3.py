@@ -35,9 +35,9 @@ class module3(aModule):
         self.toggles = switches
 
         if button._pressed:
-            self.time_pressed += 0.1
+            self.time_pressed += 1
         else:
-            timer._value -= 0.2
+            timer._value -= 2
 
         if self.solve():
             self._defused = True
