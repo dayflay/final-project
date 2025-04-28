@@ -67,6 +67,8 @@ def setup_phases():
     global current_module
     current_module = 0
 
+    print(queue)
+
     # start the phase threads
     timer.start()
     keypad.start()
