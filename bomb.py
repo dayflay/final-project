@@ -77,13 +77,12 @@ def setup_phases():
 
 # checks the phase threads
 def check_phases():
-    global active_phases
+    global active_phases, current_module, queue
     
     # check the timer
     if (timer._running):
         # update the GUI
         gui._ltimer["text"] = f"Time left: {timer}"
-        print(f"Time left: {timer}")
     else:
         # the countdown has expired -> explode!
         # turn off the bomb and render the conclusion GUI
