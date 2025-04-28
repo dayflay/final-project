@@ -2,38 +2,37 @@
 # Requires the user to hold down the button while completing another part of the bomb
 # letting go of the button too early will remove time from the counter
 from modules.aModule import aModule
-from bomb_phases import Toggles
 import random
 
 class module3(aModule):
-    def __init__(self, toggles_component, toggles_target):
+    def __init__(self):
         super().__init__()
         self.name = 'Mine'
         self.time_pressed = 0
         self.start_time = None
+        self.toggles = None
 
-        # Generate a random target based on number of toggles
-        self.toggles_target = self.random_target(len(toggles_component))
+        # Generate a random target
+        self.toggles_target = self.random_target()
+        
 
-        # create the toggles puzzle
-        self.toggles = Toggles(toggles_component, toggles_target)
-        self.toggles.start()
-
-    def random_target(self, length):
+    def random_target(self):
         # Ensure the target is not all 0s or all 1s
         while True:
-            target = ''.join(random.choice('01') for _ in range(length))
+            target = ''.join(random.choice('01') for _ in range(4))
             if '0' in target and '1' in target:  # Must have at least one 0 and one 1
                 return target
 
     def solve(self):
-        if self.time_pressed >= 45 and self.toggles._defused:
+        if self.time_pressed >= 45 and (self.toggles._value == self.toggles_target):
             return True
         return False
 
     def update(self, switches, button, wires, keypad, timer, gui):
         if self.start_time is None:
             self.start_time = timer.value
+
+        self.toggles = switches
 
         if button.pressed:
             self.time_pressed += 0.1
