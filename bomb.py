@@ -61,8 +61,8 @@ def setup_phases():
     shuffle(possible_mods)
     difficulty = 1
 
-    for i in range(0, difficulty - 1):
-        queue.append(possible_mods[i])
+    for i in range(0, difficulty):
+        queue.append(possible_mods[i - 1])
 
     global current_module
     current_module = 0
