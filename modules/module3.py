@@ -12,6 +12,7 @@ class module3(aModule):
         self.prev_timer_value = None
         self.toggles_target = self.random_target()
         self.started = False  # Flag to ensure penalty starts immediately
+        self.penalized = False  # Flag to track if penalty is applied after button release
 
     def random_target(self):
         while True:
@@ -31,25 +32,28 @@ class module3(aModule):
             self.prev_timer_value = timer._value
             return  # Wait for the next frame to proceed
 
-        # Calculate frame time (how much time has passed since the last update)
-        frame_elapsed = self.prev_timer_value - timer._value
+        # Track the change in timer between updates
+        time_diff = self.prev_timer_value - timer._value
         self.prev_timer_value = timer._value
 
-        # Don't process if no time has passed (frame_elapsed <= 0) or the module is defused
-        if frame_elapsed <= 0 or self._defused:
+        # Ensure we only process updates if time has passed
+        if time_diff <= 0 or self._defused:
             return
 
         # Start penalizing immediately after the module is activated
         if not self.started:
-            self.started = True  # Flag to indicate the module has started
+            self.started = True  # The module has started, begin penalty once button is released.
 
-        # If button is pressed, accumulate time held
         if button._pressed:
-            self.time_pressed += frame_elapsed
+            # Track time held while button is pressed
+            self.time_pressed += time_diff
+            self.penalized = False  # Reset penalty flag as the button is still held
         else:
-            # If the button is released, start penalizing
-            penalty_time = 2 * frame_elapsed  # Penalty is 2 seconds per second
-            timer._value = max(0, timer._value - penalty_time)
+            # Apply penalty once the button is released, if not already penalized
+            if not self.penalized:
+                penalty_time = 2 * time_diff  # Subtract 2 seconds per second
+                timer._value = max(0, timer._value - penalty_time)
+                self.penalized = True  # Set flag to prevent multiple penalties
 
         # Check if the module is solved
         if self.solve():
