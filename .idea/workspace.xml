@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="module 3">
-      <change beforePath="$PROJECT_DIR$/modules/module3.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/module3.py" afterDir="false" />
-    </list>
+    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="module 3" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +81,7 @@
       <workItem from="1745427716636" duration="1265000" />
       <workItem from="1745729547966" duration="730000" />
       <workItem from="1745859713667" duration="1552000" />
-      <workItem from="1746032312896" duration="2242000" />
+      <workItem from="1746032312896" duration="2622000" />
     </task>
     <task id="LOCAL-00001" summary="Create abstract class for modules">
       <option name="closed" value="true" />
@@ -301,7 +299,47 @@
       <option name="project" value="LOCAL" />
       <updated>1746034495780</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746034568923</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034568923</updated>
+    </task>
+    <task id="LOCAL-00029" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746034632352</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034632352</updated>
+    </task>
+    <task id="LOCAL-00030" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746034694517</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034694517</updated>
+    </task>
+    <task id="LOCAL-00031" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746034781797</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034781797</updated>
+    </task>
+    <task id="LOCAL-00032" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746034853895</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034853895</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
