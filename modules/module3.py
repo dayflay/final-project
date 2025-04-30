@@ -12,6 +12,7 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self._defused = False
+        self.last_update_time = None
 
         # Generate a random target
         self.toggles_target = self.random_target()
@@ -32,6 +33,7 @@ class module3(aModule):
     def update(self, switches, button, wires, keypad, timer, gui):
         if self.start_time is None:
             self.start_time = timer._value
+            self.last_update_time = timer._value
  #           screen.hide_all()
   #      # Visual feedback for button hold duration
    #     gui.draw_text(10, 10, f"Time Held: {self.time_pressed}")
@@ -43,10 +45,14 @@ class module3(aModule):
         self.toggles = switches
 
         if not self._defused:
+            elapsed = self.last_update_time - timer._value
+            if elapsed >= 0.1:
+                self.last_update_time = timer._value
+
             if button._pressed:
                 self.time_pressed += 1
             else:
-                timer._value = max(0, timer._value - 0.2)
+                timer._value = max(0, timer._value - 2)
 
         if self.solve():
             self._defused = True
