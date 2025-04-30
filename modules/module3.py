@@ -11,6 +11,7 @@ class module3(aModule):
         self.time_pressed = 0
         self.start_time = None
         self.toggles = None
+        self._defused = False
 
         # Generate a random target
         self.toggles_target = self.random_target()
@@ -31,13 +32,13 @@ class module3(aModule):
     def update(self, switches, button, wires, keypad, timer, gui):
         if self.start_time is None:
             self.start_time = timer._value
-            screen.hide_all()
-        # Visual feedback for button hold duration
-        gui.draw_text(10, 10, f"Time Held: {self.time_pressed}")
+ #           screen.hide_all()
+  #      # Visual feedback for button hold duration
+   #     gui.draw_text(10, 10, f"Time Held: {self.time_pressed}")
 
-        # Visual feedback for toggle status
-        gui.draw_text(10, 30, f"Toggles: {self.toggles._value}")
-        gui.draw_text(10, 50, f"Target:  {self.toggles_target}")
+    #    # Visual feedback for toggle status
+     #   gui.draw_text(10, 30, f"Toggles: {self.toggles._value}")
+      #  gui.draw_text(10, 50, f"Target:  {self.toggles_target}")
 
         self.toggles = switches
 
