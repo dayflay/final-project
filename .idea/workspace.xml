@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="module 3">
-      <change beforePath="$PROJECT_DIR$/modules/module3.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/module3.py" afterDir="false" />
-    </list>
+    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="module 3" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +81,7 @@
       <workItem from="1745427716636" duration="1265000" />
       <workItem from="1745729547966" duration="730000" />
       <workItem from="1745859713667" duration="1552000" />
-      <workItem from="1746032312896" duration="1594000" />
+      <workItem from="1746032312896" duration="1906000" />
     </task>
     <task id="LOCAL-00001" summary="Create abstract class for modules">
       <option name="closed" value="true" />
@@ -261,7 +259,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746033659545</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746033937360</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1746033937360</updated>
+    </task>
+    <task id="LOCAL-00024" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746034172172</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034172172</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

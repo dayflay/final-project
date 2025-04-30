@@ -9,9 +9,8 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self._defused = False
-        self.last_update_time = None  # Will store the last game timer value
+        self.last_update_time = None
 
-        # Generate a random target (not all 0s or all 1s)
         self.toggles_target = self.random_target()
 
     def random_target(self):
@@ -26,23 +25,19 @@ class module3(aModule):
     def update(self, switches, button, wires, keypad, timer, gui):
         self.toggles = switches
 
-        # Initialize timing on first call
+        # First-time setup
         if self.start_time is None:
             self.start_time = timer._value
             self.last_update_time = timer._value
 
-        # Calculate elapsed in-game time since last update
-        elapsed = self.last_update_time - timer._value
-
-        # Run logic only once every 0.1 seconds of game time
-        if not self._defused and elapsed >= 0.1:
-            self.last_update_time = timer._value  # Update reference point
+        # Only act when 0.1 or more seconds of game time have passed
+        while not self._defused and self.last_update_time - timer._value >= 0.1:
+            self.last_update_time -= 0.1  # move reference forward by 0.1 seconds
 
             if button._pressed:
                 self.time_pressed += 1
             else:
-                timer._value = max(0, timer._value - 2)  # Penalize only once per 0.1s
+                timer._value = max(0, timer._value - 2)
 
-        # Check if solved
         if self.solve():
             self._defused = True
