@@ -5,17 +5,14 @@ Reverses what the combination is but doesn't show what you put it shows the oppo
 from modules.aModule import aModule
 from time import sleep
 
-global solveProgress
 class module4(aModule):
     def __init__(self):
         super().__init__()
         self.name = "Shenanigans"
+        self.solve_progress = 0
 
     def solve(self) -> bool:
-        if solveProgress==4:
-            return True
-        else:
-            return False
+        return self.solve_progress==4
 
     def nfuncwires(self,wires):
         wires._running = True
@@ -28,24 +25,24 @@ class module4(aModule):
                 else:
                     wires._value += "1"
                 # Check if it matches the target
-            if wires_value == wires._target:
+            if wires._value == wires._target:
                 wires._defused = True
                 wires._running = False  # stop the loop if defused
             sleep(0.1)  # delay to avoid constant polling
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        if wires == "01101":
-            solveProgress += 1
-            wires = "DEFUSED"
+        if wires._value == "01101" and not wires._defused:
+            self.solve_progress += 1
+            wires._defused = True
 
-        if switches == "1010":
-            solveProgress += 1
-            switches = "DEFUSED"
+        if switches._value == "1010" and not switches._defused:
+            self.solve_progress += 1
+            switches._defused = True
 
-        if button == button._pressed():
-            solveProgress += 1
-            button = "DEFUSED"
+        if button._pressed and not button._defuseddefused:
+            self.solve_progress += 1
+            button._defused = True
 
-        if keypad == "1234":
-            solveProgress += 1
-            keypad = "DEFUSED"
+        if keypad._value == "1234" and not keypad._defused:
+            self.solve_progress += 1
+            keypad._defused = True
