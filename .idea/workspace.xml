@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="module 3 fix">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/module3.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/module3.py" afterDir="false" />
-    </list>
+    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="module 3" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,6 +79,9 @@
       <workItem from="1745255121223" duration="625000" />
       <workItem from="1745255754575" duration="3309000" />
       <workItem from="1745427716636" duration="1265000" />
+      <workItem from="1745729547966" duration="730000" />
+      <workItem from="1745859713667" duration="1552000" />
+      <workItem from="1746032312896" duration="1906000" />
     </task>
     <task id="LOCAL-00001" summary="Create abstract class for modules">
       <option name="closed" value="true" />
@@ -155,7 +155,127 @@
       <option name="project" value="LOCAL" />
       <updated>1745603247362</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1745604479379</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1745604479379</updated>
+    </task>
+    <task id="LOCAL-00011" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1745860696140</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1745860696140</updated>
+    </task>
+    <task id="LOCAL-00012" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1745863083989</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1745863083989</updated>
+    </task>
+    <task id="LOCAL-00013" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1745863808648</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1745863808648</updated>
+    </task>
+    <task id="LOCAL-00014" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1745863864703</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1745863864703</updated>
+    </task>
+    <task id="LOCAL-00015" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1745864073663</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1745864073663</updated>
+    </task>
+    <task id="LOCAL-00016" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1745864084922</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1745864084922</updated>
+    </task>
+    <task id="LOCAL-00017" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746032808781</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746032808781</updated>
+    </task>
+    <task id="LOCAL-00018" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746032981336</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1746032981336</updated>
+    </task>
+    <task id="LOCAL-00019" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746033105323</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1746033105323</updated>
+    </task>
+    <task id="LOCAL-00020" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746033371464</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1746033371464</updated>
+    </task>
+    <task id="LOCAL-00021" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746033457866</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1746033457866</updated>
+    </task>
+    <task id="LOCAL-00022" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746033659545</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1746033659545</updated>
+    </task>
+    <task id="LOCAL-00023" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746033937360</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1746033937360</updated>
+    </task>
+    <task id="LOCAL-00024" summary="module 3">
+      <option name="closed" value="true" />
+      <created>1746034172172</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1746034172172</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,7 +302,8 @@
     <MESSAGE value="toggles class" />
     <MESSAGE value="module 3 and button" />
     <MESSAGE value="module 3 fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="module 3 fix" />
+    <MESSAGE value="module 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="module 3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/final_project$bomb.coverage" NAME="bomb Coverage Results" MODIFIED="1744997988259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

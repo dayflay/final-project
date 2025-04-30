@@ -61,11 +61,13 @@ def setup_phases():
     shuffle(possible_mods)
     difficulty = 1
 
-    for i in range(0, difficulty - 1):
-        queue.append(possible_mods[i])
+    for i in range(0, difficulty):
+        queue.append(possible_mods[i - 1])
 
     global current_module
     current_module = 0
+
+    print(queue)
 
     # start the phase threads
     timer.start()
@@ -77,7 +79,7 @@ def setup_phases():
 
 # checks the phase threads
 def check_phases():
-    global active_phases
+    global active_phases, current_module, queue
     
     # check the timer
     if (timer._running):
