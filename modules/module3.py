@@ -3,6 +3,7 @@
 # letting go of the button too early will remove time from the counter
 from modules.aModule import aModule
 import random
+import time
 
 class module3(aModule):
     def __init__(self):
@@ -12,7 +13,7 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self._defused = False
-        self.last_update_time = None
+        self.last_update_time = time.time()
 
         # Generate a random target
         self.toggles_target = self.random_target()
@@ -44,15 +45,16 @@ class module3(aModule):
 
         self.toggles = switches
 
-        if not self._defused:
-            elapsed = self.last_update_time - timer._value
-            if elapsed >= 0.1:
-                self.last_update_time = timer._value
+        current_time = time.time()
+        elapsed = current_time - self.last_update_time
 
-                if button._pressed:
-                    self.time_pressed += 1
-                else:
-                    timer._value = max(0, timer._value - 2)
+        if not self._defused and elapsed >= 0.1:
+            self.last_update_time = current_time
+
+            if button._pressed:
+                self.time_pressed += 1
+            else:
+                timer._value = max(0, timer._value - 2)
 
         if self.solve():
             self._defused = True
