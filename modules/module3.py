@@ -5,7 +5,7 @@ class module3(aModule):
     def __init__(self):
         super().__init__()
         self.name = 'Mine'
-        self.time_pressed = 0
+        self.time_pressed = 0.0  # float, for seconds
         self.start_time = None
         self.toggles = None
         self._defused = False
@@ -20,8 +20,7 @@ class module3(aModule):
                 return target
 
     def solve(self):
-        return self.time_pressed >= 45 and self.toggles._value == self.toggles_target
-        # ^ This means 4.5 seconds if time_pressed += 1 every 0.1s
+        return self.time_pressed >= 4.5 and self.toggles._value == self.toggles_target
 
     def update(self, switches, button, wires, keypad, timer, gui):
         self.toggles = switches
@@ -30,11 +29,12 @@ class module3(aModule):
             self.start_time = timer._value
             self.last_update_time = timer._value
 
+        # Only act every 0.1 seconds of game time
         while not self._defused and self.last_update_time - timer._value >= 0.1:
             self.last_update_time -= 0.1
 
             if button._pressed:
-                self.time_pressed += 1  # 1 unit = 0.1 seconds
+                self.time_pressed += 0.1  # now tracks real seconds
             else:
                 timer._value = max(0, timer._value - 2)
 
