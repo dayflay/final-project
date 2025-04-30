@@ -31,13 +31,21 @@ class module3(aModule):
     def update(self, switches, button, wires, keypad, timer, gui):
         if self.start_time is None:
             self.start_time = timer._value
+            screen.hide_all()
+        # Visual feedback for button hold duration
+        gui.draw_text(10, 10, f"Time Held: {self.time_pressed}")
+
+        # Visual feedback for toggle status
+        gui.draw_text(10, 30, f"Toggles: {self.toggles._value}")
+        gui.draw_text(10, 50, f"Target:  {self.toggles_target}")
 
         self.toggles = switches
 
-        if button._pressed:
-            self.time_pressed += 1
-        else:
-            timer._value -= 2
+        if not self._defused:
+            if button._pressed:
+                self.time_pressed += 1
+            else:
+                timer._value = max(0, timer._value - 2)
 
         if self.solve():
             self._defused = True
