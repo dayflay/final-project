@@ -29,13 +29,11 @@ class module3(aModule):
             self.start_time = timer._value
             self.prev_timer_value = timer._value
 
-        # Calculate time passed since last frame
         frame_elapsed = self.prev_timer_value - timer._value
         if frame_elapsed > 0:
             self.accumulated_time += frame_elapsed
             self.prev_timer_value = timer._value
 
-        # Update logic every 0.1 seconds
         while self.accumulated_time >= 0.1:
             self.accumulated_time -= 0.1
 
@@ -43,7 +41,12 @@ class module3(aModule):
                 if button._pressed:
                     self.time_pressed += 0.1
                 else:
-                    timer._value = max(0, timer._value - 0.2)  # FIXED: only reduce 2s per second
+                    # Only subtract time if timer is still running and not solved
+                    if timer._value > 0.2:
+                        timer._value = max(0, timer._value - 0.2)
 
                 if self.solve():
                     self._defused = True
+
+        # Debug line — remove later
+        print(f"Timer: {timer._value:.2f}, Held: {self.time_pressed:.2f}, Defused: {self._defused}")
