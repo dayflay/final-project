@@ -29,21 +29,21 @@ class module3(aModule):
             self.start_time = timer._value
             self.prev_timer_value = timer._value
 
-        # Calculate how much time passed since last update
+        # Calculate time passed since last frame
         frame_elapsed = self.prev_timer_value - timer._value
         if frame_elapsed > 0:
             self.accumulated_time += frame_elapsed
             self.prev_timer_value = timer._value
 
-        # Only update logic every 0.1 seconds of real game time
-        if self.accumulated_time >= 0.1:
+        # Update logic every 0.1 seconds
+        while self.accumulated_time >= 0.1:
             self.accumulated_time -= 0.1
 
             if not self._defused:
                 if button._pressed:
                     self.time_pressed += 0.1
                 else:
-                    timer._value = max(0, timer._value - 2)
+                    timer._value = max(0, timer._value - 0.2)  # FIXED: only reduce 2s per second
 
                 if self.solve():
                     self._defused = True
