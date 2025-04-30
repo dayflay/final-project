@@ -39,7 +39,7 @@ class module4(aModule):
             self.solve_progress += 1
             switches._defused = True
 
-        if button._pressed and not button._defuseddefused:
+        if button._pressed and not button._defused:
             self.solve_progress += 1
             button._defused = True
 
