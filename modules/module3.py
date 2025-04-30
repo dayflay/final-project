@@ -21,21 +21,20 @@ class module3(aModule):
 
     def solve(self):
         return self.time_pressed >= 45 and self.toggles._value == self.toggles_target
+        # ^ This means 4.5 seconds if time_pressed += 1 every 0.1s
 
     def update(self, switches, button, wires, keypad, timer, gui):
         self.toggles = switches
 
-        # First-time setup
         if self.start_time is None:
             self.start_time = timer._value
             self.last_update_time = timer._value
 
-        # Only act when 0.1 or more seconds of game time have passed
         while not self._defused and self.last_update_time - timer._value >= 0.1:
-            self.last_update_time -= 0.1  # move reference forward by 0.1 seconds
+            self.last_update_time -= 0.1
 
             if button._pressed:
-                self.time_pressed += 1
+                self.time_pressed += 1  # 1 unit = 0.1 seconds
             else:
                 timer._value = max(0, timer._value - 2)
 
