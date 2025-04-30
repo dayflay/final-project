@@ -26,7 +26,7 @@ class module3(aModule):
                 return target
 
     def solve(self):
-        if self.time_pressed >= 45 and (self.toggles._value == self.toggles_target):
+        if self.time_pressed >= 20 and (self.toggles._value == self.toggles_target):
             return True
         return False
 
