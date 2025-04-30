@@ -1,6 +1,5 @@
 from modules.aModule import aModule
 import random
-import time
 
 class module3(aModule):
     def __init__(self):
@@ -10,9 +9,9 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self._defused = False
-        self.last_update_time = time.time()  # Real-world timer
+        self.last_update_time = None  # Will store the last game timer value
 
-        # Generate a random target
+        # Generate a random target (not all 0s or all 1s)
         self.toggles_target = self.random_target()
 
     def random_target(self):
@@ -27,17 +26,23 @@ class module3(aModule):
     def update(self, switches, button, wires, keypad, timer, gui):
         self.toggles = switches
 
-        current_time = time.time()
-        elapsed = current_time - self.last_update_time
+        # Initialize timing on first call
+        if self.start_time is None:
+            self.start_time = timer._value
+            self.last_update_time = timer._value
 
-        # Only execute logic every 0.1 seconds
+        # Calculate elapsed in-game time since last update
+        elapsed = self.last_update_time - timer._value
+
+        # Run logic only once every 0.1 seconds of game time
         if not self._defused and elapsed >= 0.1:
-            self.last_update_time = current_time  # Reset clock
+            self.last_update_time = timer._value  # Update reference point
 
             if button._pressed:
                 self.time_pressed += 1
             else:
-                timer._value = max(0, timer._value - 2)  # Subtract only once per 0.1s
+                timer._value = max(0, timer._value - 2)  # Penalize only once per 0.1s
 
+        # Check if solved
         if self.solve():
             self._defused = True
