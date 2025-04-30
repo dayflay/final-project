@@ -49,10 +49,10 @@ class module3(aModule):
             if elapsed >= 0.1:
                 self.last_update_time = timer._value
 
-            if button._pressed:
-                self.time_pressed += 1
-            else:
-                timer._value = max(0, timer._value - 2)
+                if button._pressed:
+                    self.time_pressed += 1
+                else:
+                    timer._value = max(0, timer._value - 2)
 
         if self.solve():
             self._defused = True
