@@ -11,7 +11,7 @@ class module3(aModule):
         self._defused = False
         self.prev_timer_value = None
         self.toggles_target = self.random_target()
-        self.started = False  # True once the module is active and ready to penalize
+        self.started = False  # Flag to ensure penalty starts immediately
 
     def random_target(self):
         while True:
@@ -20,40 +20,40 @@ class module3(aModule):
                 return target
 
     def solve(self):
-        # Game is solved when time pressed >= 45 and toggles match the target
+        # Solve condition: time held is at least 45 seconds, and toggles match the target.
         return self.time_pressed >= 45 and self.toggles._value == self.toggles_target
 
     def update(self, switches, button, wires, keypad, timer, gui):
         self.toggles = switches
 
-        # Wait for the module to be activated before starting the timer.
+        # Initialize prev_timer_value if not set
         if self.prev_timer_value is None:
             self.prev_timer_value = timer._value
-            return
+            return  # Wait for the next frame to proceed
 
-        # Calculate the time elapsed since the last update (frame time)
+        # Calculate frame time (how much time has passed since the last update)
         frame_elapsed = self.prev_timer_value - timer._value
         self.prev_timer_value = timer._value
 
-        # Ignore frames where time hasn't passed
+        # Don't process if no time has passed (frame_elapsed <= 0) or the module is defused
         if frame_elapsed <= 0 or self._defused:
             return
 
-        # Module is active and ready to penalize once it starts.
+        # Start penalizing immediately after the module is activated
         if not self.started:
-            self.started = True  # The module has started, begin penalty.
+            self.started = True  # Flag to indicate the module has started
 
-        # Track time held while the button is pressed
+        # If button is pressed, accumulate time held
         if button._pressed:
             self.time_pressed += frame_elapsed
         else:
-            # Subtract 2 seconds for each second the button is released
-            penalty_time = 2 * frame_elapsed  # 2 seconds per second
+            # If the button is released, start penalizing
+            penalty_time = 2 * frame_elapsed  # Penalty is 2 seconds per second
             timer._value = max(0, timer._value - penalty_time)
 
         # Check if the module is solved
         if self.solve():
             self._defused = True
 
-        # Debug (you can remove this once it's working)
+        # Debug (remove this once it works)
         print(f"Timer: {timer._value:.2f}, Held: {self.time_pressed:.2f}, Defused: {self._defused}")
