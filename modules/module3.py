@@ -9,7 +9,8 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self._defused = False
-        self.last_update_time = None
+        self.prev_timer_value = None
+        self.accumulated_time = 0.0
         self.toggles_target = self.random_target()
 
     def random_target(self):
@@ -26,14 +27,17 @@ class module3(aModule):
 
         if self.start_time is None:
             self.start_time = timer._value
-            self.last_update_time = timer._value
+            self.prev_timer_value = timer._value
 
-        # Calculate how much time has passed since the last update
-        time_passed = self.last_update_time - timer._value  # > 0 if time moved forward
+        # Calculate how much time passed since last update
+        frame_elapsed = self.prev_timer_value - timer._value
+        if frame_elapsed > 0:
+            self.accumulated_time += frame_elapsed
+            self.prev_timer_value = timer._value
 
-        # Only update logic every 0.1 seconds
-        if time_passed >= 0.1:
-            self.last_update_time = timer._value  # move forward in time
+        # Only update logic every 0.1 seconds of real game time
+        if self.accumulated_time >= 0.1:
+            self.accumulated_time -= 0.1
 
             if not self._defused:
                 if button._pressed:
