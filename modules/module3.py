@@ -28,17 +28,18 @@ class module3(aModule):
             self.start_time = timer._value
             self.last_update_time = timer._value
 
-        # Calculate elapsed time correctly (because timer counts down)
-        elapsed_time = self.last_update_time - timer._value  # POSITIVE if time has passed
+        # Calculate how much time has passed since the last update
+        time_passed = self.last_update_time - timer._value  # > 0 if time moved forward
 
-        if not self._defused and elapsed_time >= 0.1:
-            # Update the last checked time
-            self.last_update_time = timer._value
+        # Only update logic every 0.1 seconds
+        if time_passed >= 0.1:
+            self.last_update_time = timer._value  # move forward in time
 
-            if button._pressed:
-                self.time_pressed += 0.1
-            else:
-                timer._value = max(0, timer._value - 2)
+            if not self._defused:
+                if button._pressed:
+                    self.time_pressed += 0.1
+                else:
+                    timer._value = max(0, timer._value - 2)
 
-        if self.solve():
-            self._defused = True
+                if self.solve():
+                    self._defused = True
