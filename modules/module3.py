@@ -1,6 +1,3 @@
-# Module 3: ""
-# Requires the user to hold down the button while completing another part of the bomb
-# letting go of the button too early will remove time from the counter
 from modules.aModule import aModule
 import random
 import time
@@ -13,54 +10,34 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self._defused = False
-        self.last_update_time = time.time()
+        self.last_update_time = time.time()  # Real-world timer
 
         # Generate a random target
         self.toggles_target = self.random_target()
-        
 
     def random_target(self):
-        # Ensure the target is not all 0s or all 1s
         while True:
             target = ''.join(random.choice('01') for _ in range(4))
-            if '0' in target and '1' in target:  # Must have at least one 0 and one 1
+            if '0' in target and '1' in target:
                 return target
 
     def solve(self):
-        if self.time_pressed >= 45 and (self.toggles._value == self.toggles_target):
-            return True
-        return False
+        return self.time_pressed >= 45 and self.toggles._value == self.toggles_target
 
     def update(self, switches, button, wires, keypad, timer, gui):
-        if self.start_time is None:
-            self.start_time = timer._value
-            self.last_update_time = timer._value
- #           screen.hide_all()
-  #      # Visual feedback for button hold duration
-   #     gui.draw_text(10, 10, f"Time Held: {self.time_pressed}")
-
-    #    # Visual feedback for toggle status
-     #   gui.draw_text(10, 30, f"Toggles: {self.toggles._value}")
-      #  gui.draw_text(10, 50, f"Target:  {self.toggles_target}")
-
         self.toggles = switches
 
         current_time = time.time()
         elapsed = current_time - self.last_update_time
 
+        # Only execute logic every 0.1 seconds
         if not self._defused and elapsed >= 0.1:
-            self.last_update_time = current_time
+            self.last_update_time = current_time  # Reset clock
 
             if button._pressed:
                 self.time_pressed += 1
             else:
-                timer._value = max(0, timer._value - 2)
+                timer._value = max(0, timer._value - 2)  # Subtract only once per 0.1s
 
         if self.solve():
             self._defused = True
-
-
-
-
-
-
