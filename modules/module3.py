@@ -11,6 +11,7 @@ class module3(aModule):
         self._defused = False
         self.prev_timer_value = None
         self.toggles_target = self.random_target()
+        self.started = False  # ✅ only start penalizing after first press
 
     def random_target(self):
         while True:
@@ -26,14 +27,20 @@ class module3(aModule):
 
         if self.prev_timer_value is None:
             self.prev_timer_value = timer._value
-            return  # wait for next frame
+            return
 
-        # Time since last update
         frame_elapsed = self.prev_timer_value - timer._value
         self.prev_timer_value = timer._value
 
         if frame_elapsed <= 0 or self._defused:
             return
+
+        # ✅ Wait until player presses button before starting penalty tracking
+        if not self.started:
+            if button._pressed:
+                self.started = True
+            else:
+                return  # wait until first button press
 
         if button._pressed:
             self.time_pressed += frame_elapsed
@@ -43,5 +50,4 @@ class module3(aModule):
         if self.solve():
             self._defused = True
 
-        # Debug (remove later)
         print(f"Timer: {timer._value:.2f}, Held: {self.time_pressed:.2f}, Defused: {self._defused}")
