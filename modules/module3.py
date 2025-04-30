@@ -40,8 +40,9 @@ class module3(aModule):
             self.time_pressed += 10
 
         if floor(self.ticks) == 1:
-            timer._value -= 2
             self.ticks = 0
+            if not button._pressed:
+                timer._value -= 2
         else:
             self.ticks += 0.1
 
