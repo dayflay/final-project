@@ -3,6 +3,7 @@
 # letting go of the button too early will remove time from the counter
 from modules.aModule import aModule
 import random
+from math import floor
 
 
 class module3(aModule):
@@ -38,11 +39,12 @@ class module3(aModule):
         if button._pressed:
             self.time_pressed += 10
 
-        if self.ticks == 1:
+        if floor(self.ticks) == 1:
             timer._value -= 2
             self.ticks = 0
         else:
             self.ticks += 0.1
+
 
         if self.solve():
             self._defused = True
