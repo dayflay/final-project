@@ -20,33 +20,40 @@ class module3(aModule):
                 return target
 
     def solve(self):
-        return self.time_pressed >= 4.5 and self.toggles._value == self.toggles_target
+        # Game is solved when time pressed >= 45 and toggles match the target
+        return self.time_pressed >= 45 and self.toggles._value == self.toggles_target
 
     def update(self, switches, button, wires, keypad, timer, gui):
         self.toggles = switches
 
+        # Wait for the module to be activated before starting the timer.
         if self.prev_timer_value is None:
             self.prev_timer_value = timer._value
             return
 
+        # Calculate the time elapsed since the last update (frame time)
         frame_elapsed = self.prev_timer_value - timer._value
         self.prev_timer_value = timer._value
 
+        # Ignore frames where time hasn't passed
         if frame_elapsed <= 0 or self._defused:
             return
 
-        # **Start penalizing immediately** when module is activated
+        # Module is active and ready to penalize once it starts.
         if not self.started:
-            self.started = True  # The module is now active, start penalizing
+            self.started = True  # The module has started, begin penalty.
 
+        # Track time held while the button is pressed
         if button._pressed:
             self.time_pressed += frame_elapsed
         else:
-            # Penalize when the button is released
-            timer._value = max(0, timer._value - (2 * frame_elapsed))  # Subtract time per second
+            # Subtract 2 seconds for each second the button is released
+            penalty_time = 2 * frame_elapsed  # 2 seconds per second
+            timer._value = max(0, timer._value - penalty_time)
 
+        # Check if the module is solved
         if self.solve():
             self._defused = True
 
-        # Debug (remove later)
+        # Debug (you can remove this once it's working)
         print(f"Timer: {timer._value:.2f}, Held: {self.time_pressed:.2f}, Defused: {self._defused}")
