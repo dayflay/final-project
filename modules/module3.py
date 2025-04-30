@@ -46,7 +46,7 @@ class module3(aModule):
             if button._pressed:
                 self.time_pressed += 1
             else:
-                timer._value = max(0, timer._value - 2)
+                timer._value = max(0, timer._value - 0.2)
 
         if self.solve():
             self._defused = True
