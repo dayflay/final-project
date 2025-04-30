@@ -9,8 +9,8 @@ from modules.module0 import module0
 from modules.module1 import module1
 from modules.module2 import module2
 from modules.module3 import module3
-
-__all__ = ["module0", "module1", "module2", "module3"]
+from modules.module4 import module4
+__all__ = ["module0", "module1", "module2", "module3","module4"]
 
 # for loader, module_name, is_pkg in iter_modules(__path__):
 # 	module = import_module(f"{__name__}.{module_name}")
