@@ -70,7 +70,6 @@ class Lcd(Frame):
             self._bquit.grid(row=6, column=2, pady=40)
 
     def hide_all(self):
-        self._ltimer.grid_forget()
         self._lwires.grid_forget()
         self._lkeypad.grid_forget()
         self._lbutton.grid_forget()

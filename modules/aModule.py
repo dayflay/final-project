@@ -34,6 +34,3 @@ class aModule(ABC):
 		"""
 
 		return False
-
-	def __str__(self):
-		return self.name
