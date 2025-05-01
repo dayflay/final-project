@@ -10,7 +10,6 @@ from bomb_configs import *
 from bomb_phases import *
 # randomization library
 from random import shuffle
-
 ###########
 # functions
 ##########
