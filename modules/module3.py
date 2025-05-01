@@ -3,6 +3,8 @@
 # letting go of the button too early will remove time from the counter
 from modules.aModule import aModule
 import random
+from math import floor
+
 
 class module3(aModule):
     def __init__(self):
@@ -11,10 +13,10 @@ class module3(aModule):
         self.time_pressed = 0
         self.start_time = None
         self.toggles = None
+        self.ticks = 0
 
         # Generate a random target
         self.toggles_target = self.random_target()
-        
 
     def random_target(self):
         # Ensure the target is not all 0s or all 1s
@@ -24,7 +26,7 @@ class module3(aModule):
                 return target
 
     def solve(self):
-        if self.time_pressed >= 45 and (self.toggles._value == self.toggles_target):
+        if self.time_pressed >= 20 and (self.toggles._value == self.toggles_target):
             return True
         return False
 
@@ -35,15 +37,15 @@ class module3(aModule):
         self.toggles = switches
 
         if button._pressed:
-            self.time_pressed += 0.1
+            self.time_pressed += 10
+
+        if floor(self.ticks) == 1:
+            self.ticks = 0
+            if not button._pressed:
+                timer._value -= 2
         else:
-            timer._value -= 0.2
+            self.ticks += 0.1
+
 
         if self.solve():
             self._defused = True
-
-
-
-
-
-
