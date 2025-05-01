@@ -41,7 +41,7 @@ class module3(aModule):
         self.toggles = switches
 
         if button._pressed:
-            self.time_pressed += 10
+            self.time_pressed += 1
 
         if floor(self.ticks) == 1:
             self.ticks = 0
