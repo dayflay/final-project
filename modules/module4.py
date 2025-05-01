@@ -18,7 +18,7 @@ class module4(aModule):
         return ''.join('1' if b == '0' else '0' for b in bits)
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        screen._ltimer["sticky"] = "E"
+        screen._ltimer.grid["sticky"] = "E"
 
         # Invert expected target for wires
         expected_wires = self.invert(wires._target)
