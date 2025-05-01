@@ -28,7 +28,7 @@ class module4(aModule):
 
         # Set text alignment to right while this module is active
         screen._lscroll["anchor"] = "e"  # Right-aligned
-
+        screen._lscroll["justify"] = "right"
         # Invert expected target for wires
         expected_wires = self.invert(wires._target)
         if wires._value == expected_wires and not wires._defused:
