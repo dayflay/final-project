@@ -1,0 +1,647 @@
+Index: modules/module3.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Module 3: \"\"\n# Requires the user to hold down the button while completing another part of the bomb\n# letting go of the button too early will remove time from the counter\nfrom modules.aModule import aModule\nimport random\nfrom math import floor\n\n\nclass module3(aModule):\n    def __init__(self):\n        super().__init__()\n        self.name = 'Mine'\n        self.time_pressed = 0\n        self.start_time = None\n        self.toggles = None\n        self.ticks = 0\n\n        # Generate a random target\n        self.toggles_target = self.random_target()\n\n    def random_target(self):\n        # Ensure the target is not all 0s or all 1s\n        while True:\n            target = ''.join(random.choice('01') for _ in range(4))\n            if '0' in target and '1' in target:  # Must have at least one 0 and one 1\n                return target\n\n    def solve(self):\n        if self.time_pressed >= 20 and (self.toggles._value == self.toggles_target):\n            return True\n        return False\n\n    def update(self, switches, button, wires, keypad, timer, gui):\n        if self.start_time is None:\n            self.start_time = timer._value\n\n        self.toggles = switches\n\n        if button._pressed:\n            self.time_pressed += 10\n\n        if floor(self.ticks) == 1:\n            self.ticks = 0\n            if not button._pressed:\n                timer._value -= 2\n        else:\n            self.ticks += 0.1\n\n\n        if self.solve():\n            self._defused = True
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/module3.py b/modules/module3.py
+--- a/modules/module3.py	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ b/modules/module3.py	(date 1746124898800)
+@@ -14,6 +14,7 @@
+         self.start_time = None
+         self.toggles = None
+         self.ticks = 0
++        self.booted = False
+ 
+         # Generate a random target
+         self.toggles_target = self.random_target()
+@@ -30,12 +31,39 @@
+             return True
+         return False
+ 
+-    def update(self, switches, button, wires, keypad, timer, gui):
++    def update(self, switches, button, wires, keypad, timer, gui, screen):
+         if self.start_time is None:
+             self.start_time = timer._value
+ 
++        if not self.booted:
++            self.booted = True
++            screen.hide_all()
++
+         self.toggles = switches
+ 
++
++        self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
++                                 text="land mine")
++        self.title_label.grid(row=2, column=1, pady=35)
++
++        self.description_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
++                                       text="hold the button and dont let go!")
++        self.description_label.grid(row=3, column=1, pady=35)
++
++        self.toggles_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
++                                   text="solve the toggles without blowing up the landmine")
++        self.toggles_label.grid(row=4, column=1, pady=35)
++
++        self.target_hint_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
++                                       text=f"{self.toggles_target}")
++        self.target_hint_label.grid(row=5, column=1, pady=35)
++
++        self.button_timer_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
++                                        text=f"{self.time_pressed}")
++        self.button_timer_label.grid(row=6, column=1, pady=35)
++
++
++
+         if button._pressed:
+             self.time_pressed += 10
+ 
+@@ -46,6 +74,5 @@
+         else:
+             self.ticks += 0.1
+ 
+-
+         if self.solve():
+             self._defused = True
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_38 PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_38 PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_38 PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_38 PM_[Changes]/shelved.patch	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ /dev/null	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
+@@ -1,44 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"toggles class\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/bomb_phases.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/bomb_phases.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;dayflay&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/dayflay/final-project.git&quot;,\n    &quot;accountId&quot;: &quot;c916f783-d6ad-4d4f-89d2-a6a328b6dae4&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 4\n}</component>\n  <component name=\"ProjectId\" id=\"2vBN3mvItItH7et6uPp5Nhevu4M\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/flate/OneDrive/Desktop/Classes/CompSci2/final-project/modules&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\flate\\OneDrive\\Desktop\\Classes\\CompSci2\\final-project\\modules\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220\" />\n        <option value=\"bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"\" />\n      <created>1743614311055</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1743614311055</updated>\n      <workItem from=\"1745255121223\" duration=\"625000\" />\n      <workItem from=\"1745255754575\" duration=\"3309000\" />\n      <workItem from=\"1745427716636\" duration=\"1265000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Create abstract class for modules\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1743614476479</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1743614476479</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998073281</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998073281</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998136181</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998136181</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255628350</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255628350</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255775105</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255775105</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"toggles class super()\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745257707050</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745257707050</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745258134053</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745258134053</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"8\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Create abstract class for modules\" />\n    <MESSAGE value=\"test\" />\n    <MESSAGE value=\"moved quit button closer to pause\" />\n    <MESSAGE value=\"Merge remote-tracking branch 'origin/main'\" />\n    <MESSAGE value=\"bomb phases -&gt; toggles class\" />\n    <MESSAGE value=\"toggles class super()\" />\n    <MESSAGE value=\"toggles class\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"toggles class\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/final_project$bomb.coverage\" NAME=\"bomb Coverage Results\" MODIFIED=\"1744997988259\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_test.coverage\" NAME=\"bomb-test Coverage Results\" MODIFIED=\"1744997668815\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_phases.coverage\" NAME=\"bomb_phases Coverage Results\" MODIFIED=\"1744998033821\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 7ef09771299216b07b4d7aa30a703c56e15015e2)
+-+++ b/.idea/workspace.xml	(date 1745429697721)
+-@@ -6,7 +6,6 @@
+-   <component name="ChangeListManager">
+-     <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="toggles class">
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/bomb_phases.py" beforeDir="false" afterPath="$PROJECT_DIR$/bomb_phases.py" afterDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-@@ -81,7 +80,7 @@
+-       <updated>1743614311055</updated>
+-       <workItem from="1745255121223" duration="625000" />
+-       <workItem from="1745255754575" duration="3309000" />
+--      <workItem from="1745427716636" duration="1265000" />
+-+      <workItem from="1745427716636" duration="1974000" />
+-     </task>
+-     <task id="LOCAL-00001" summary="Create abstract class for modules">
+-       <option name="closed" value="true" />
+-@@ -139,7 +138,15 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1745258134053</updated>
+-     </task>
+--    <option name="localTasksCounter" value="8" />
+-+    <task id="LOCAL-00008" summary="toggles class">
+-+      <option name="closed" value="true" />
+-+      <created>1745429034805</created>
+-+      <option name="number" value="00008" />
+-+      <option name="presentableId" value="LOCAL-00008" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1745429034805</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="9" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_12 PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_12 PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_12 PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_12 PM_[Changes]/shelved.patch	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ /dev/null	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
+@@ -1,76 +0,0 @@
+-Index: bomb_phases.py
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>#################################\n# CSC 102 Defuse the Bomb Project\n# GUI and Phase class definitions\n# Team: \n#################################\n\n# import the configs\nfrom bomb_configs import *\n# other imports\nfrom tkinter import *\nimport tkinter\nfrom threading import Thread\nfrom time import sleep\nimport os\nimport sys\n\n#########\n# classes\n#########\n# the LCD display GUI\nclass Lcd(Frame):\n    def __init__(self, window):\n        super().__init__(window, bg=\"black\")\n        # make the GUI fullscreen\n        window.attributes(\"-fullscreen\", True)\n        # we need to know about the timer (7-segment display) to be able to pause/unpause it\n        self._timer = None\n        # we need to know about the pushbutton to turn off its LED when the program exits\n        self._button = None\n        # setup the initial \"boot\" GUI\n        self.setupBoot()\n\n    # sets up the LCD \"boot\" GUI\n    def setupBoot(self):\n        # set column weights\n        self.columnconfigure(0, weight=1)\n        self.columnconfigure(1, weight=2)\n        self.columnconfigure(2, weight=1)\n        # the scrolling informative \"boot\" text\n        self._lscroll = Label(self, bg=\"black\", fg=\"white\", font=(\"Courier New\", 14), text=\"\", justify=LEFT)\n        self._lscroll.grid(row=0, column=0, columnspan=3, sticky=W)\n        self.pack(fill=BOTH, expand=True)\n\n    # sets up the LCD GUI\n    def setup(self):\n        # the timer\n        self._ltimer = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Time left: \")\n        self._ltimer.grid(row=1, column=0, columnspan=3, sticky=W)\n        # the keypad passphrase\n        self._lkeypad = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Keypad phase: \")\n        self._lkeypad.grid(row=2, column=0, columnspan=3, sticky=W)\n        # the jumper wires status\n        self._lwires = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Wires phase: \")\n        self._lwires.grid(row=3, column=0, columnspan=3, sticky=W)\n        # the pushbutton status\n        self._lbutton = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Button phase: \")\n        self._lbutton.grid(row=4, column=0, columnspan=3, sticky=W)\n        # the toggle switches status\n        self._ltoggles = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Toggles phase: \")\n        self._ltoggles.grid(row=5, column=0, columnspan=2, sticky=W)\n        # the strikes left\n        self._lstrikes = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Strikes left: \")\n        self._lstrikes.grid(row=5, column=2, sticky=W)\n        if (SHOW_BUTTONS):\n            # the pause button (pauses the timer)\n            self._bpause = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Pause\", anchor=CENTER, command=self.pause)\n            self._bpause.grid(row=6, column=0, pady=40)\n            # the quit button\n            self._bquit = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Quit\", anchor=CENTER, command=self.quit)\n            self._bquit.grid(row=6, column=2, pady=40)\n\n    # lets us pause/unpause the timer (7-segment display)\n    def setTimer(self, timer):\n        self._timer = timer\n\n    # lets us turn off the pushbutton's RGB LED\n    def setButton(self, button):\n        self._button = button\n\n    # pauses the timer\n    def pause(self):\n        if (RPi):\n            self._timer.pause()\n\n    # setup the conclusion GUI (explosion/defusion)\n    def conclusion(self, success=False):\n        # destroy/clear widgets that are no longer needed\n        self._lscroll[\"text\"] = \"\"\n        self._ltimer.destroy()\n        self._lkeypad.destroy()\n        self._lwires.destroy()\n        self._lbutton.destroy()\n        self._ltoggles.destroy()\n        self._lstrikes.destroy()\n        if (SHOW_BUTTONS):\n            self._bpause.destroy()\n            self._bquit.destroy()\n\n        # reconfigure the GUI\n        # the retry button\n        self._bretry = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Retry\", anchor=CENTER, command=self.retry)\n        self._bretry.grid(row=1, column=0, pady=40)\n        # the quit button\n        self._bquit = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Quit\", anchor=CENTER, command=self.quit)\n        self._bquit.grid(row=1, column=2, pady=40)\n\n    # re-attempts the bomb (after an explosion or a successful defusion)\n    def retry(self):\n        # re-launch the program (and exit this one)\n        os.execv(sys.executable, [\"python3\"] + [sys.argv[0]])\n        exit(0)\n\n    # quits the GUI, resetting some components\n    def quit(self):\n        if (RPi):\n            # turn off the 7-segment display\n            self._timer._running = False\n            self._timer._component.blink_rate = 0\n            self._timer._component.fill(0)\n            # turn off the pushbutton's LED\n            for pin in self._button._rgb:\n                pin.value = True\n        # exit the application\n        exit(0)\n\n# template (superclass) for various bomb components/phases\nclass PhaseThread(Thread):\n    def __init__(self, name, component=None, target=None):\n        super().__init__(name=name, daemon=True)\n        # phases have an electronic component (which usually represents the GPIO pins)\n        self._component = component\n        # phases have a target value (e.g., a specific combination on the keypad, the proper jumper wires to \"cut\", etc)\n        self._target = target\n        # phases can be successfully defused\n        self._defused = False\n        # phases can be failed (which result in a strike)\n        self._failed = False\n        # phases have a value (e.g., a pushbutton can be True/Pressed or False/Released, several jumper wires can be \"cut\"/False, etc)\n        self._value = None\n        # phase threads are either running or not\n        self._running = False\n\n# the timer phase\nclass Timer(PhaseThread):\n    def __init__(self, component, initial_value, name=\"Timer\"):\n        super().__init__(name, component)\n        # the default value is the specified initial value\n        self._value = initial_value\n        # is the timer paused?\n        self._paused = False\n        # initialize the timer's minutes/seconds representation\n        self._min = \"\"\n        self._sec = \"\"\n        # by default, each tick is 1 second\n        self._interval = 1\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        while (self._running):\n            if (not self._paused):\n                # update the timer and display its value on the 7-segment display\n                self._update()\n                self._component.print(str(self))\n                # wait 1s (default) and continue\n                sleep(self._interval)\n                # the timer has expired -> phase failed (explode)\n                if (self._value == 0):\n                    self._running = False\n                self._value -= 1\n            else:\n                sleep(0.1)\n\n    # updates the timer (only internally called)\n    def _update(self):\n        self._min = f\"{self._value // 60}\".zfill(2)\n        self._sec = f\"{self._value % 60}\".zfill(2)\n\n    # pauses and unpauses the timer\n    def pause(self):\n        # toggle the paused state\n        self._paused = not self._paused\n        # blink the 7-segment display when paused\n        self._component.blink_rate = (2 if self._paused else 0)\n\n    # returns the timer as a string (mm:ss)\n    def __str__(self):\n        return f\"{self._min}:{self._sec}\"\n\n# the keypad phase\nclass Keypad(PhaseThread):\n    def __init__(self, component, target, name=\"Keypad\"):\n        super().__init__(name, component, target)\n        # the default value is an empty string\n        self._value = \"\"\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        while (self._running):\n            # process keys when keypad key(s) are pressed\n            if (self._component.pressed_keys):\n                # debounce\n                while (self._component.pressed_keys):\n                    try:\n                        # just grab the first key pressed if more than one were pressed\n                        key = self._component.pressed_keys[0]\n                    except:\n                        key = \"\"\n                    sleep(0.1)\n                # log the key\n                self._value += str(key)\n                # the combination is correct -> phase defused\n                if (self._value == self._target):\n                    self._defused = True\n                # the combination is incorrect -> phase failed (strike)\n                elif (self._value != self._target[0:len(self._value)]):\n                    self._failed = True\n            sleep(0.1)\n\n    # returns the keypad combination as a string\n    def __str__(self):\n        if (self._defused):\n            return \"DEFUSED\"\n        else:\n            return self._value\n\n# the jumper wires phase\nclass Wires(PhaseThread):\n    def __init__(self, component, target, name=\"Wires\"):\n        super().__init__(name, component, target)\n        #self._value = \"\"\n       \n\n    # runs the thread\n    def run(self):\n        # TODO\n        pass\n        #self._running = True\n        #while(self._running == True):\n\n    # returns the jumper wires' state as a binary string\n    def __str__(self):\n        if (self._defused):\n            return \"DEFUSED\"\n        else:\n            # TODO\n            #return self._value\n\n# the pushbutton phase\nclass Button(PhaseThread):\n    def __init__(self, component_state, component_rgb, target, color, timer, name=\"Button\"):\n        super().__init__(name, component_state, target)\n        # the default value is False/Released\n        self._value = False\n        # has the pushbutton been pressed?\n        self._pressed = False\n        # we need the pushbutton's RGB pins to set its color\n        self._rgb = component_rgb\n        # the pushbutton's randomly selected LED color\n        self._color = color\n        # we need to know about the timer (7-segment display) to be able to determine correct pushbutton releases in some cases\n        self._timer = timer\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        # set the RGB LED color\n        self._rgb[0].value = False if self._color == \"R\" else True\n        self._rgb[1].value = False if self._color == \"G\" else True\n        self._rgb[2].value = False if self._color == \"B\" else True\n        while (self._running):\n            # get the pushbutton's state\n            self._value = self._component.value\n            # it is pressed\n            if (self._value):\n                # note it\n                self._pressed = True\n            # it is released\n            else:\n                # was it previously pressed?\n                if (self._pressed):\n                    # check the release parameters\n                    # for R, nothing else is needed\n                    # for G or B, a specific digit must be in the timer (sec) when released\n                    if (not self._target or self._target in self._timer._sec):\n                        self._defused = True\n                    else:\n                        self._failed = True\n                    # note that the pushbutton was released\n                    self._pressed = False\n            sleep(0.1)\n\n    # returns the pushbutton's state as a string\n    def __str__(self):\n        if (self._defused):\n            return \"DEFUSED\"\n        else:\n            return str(\"Pressed\" if self._value else \"Released\")\n\n# the toggle switches phase\nclass Toggles(PhaseThread):\n    def __init__(self, pins, component, target, name=\"Toggles\"):\n        super().__init__(name = name, component = component, target = target)\n        self._value = \"\"\n        # the toggle switch pins\n        self._pins = pins\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        while (self._running):\n            # get the toggle switch values (0->False, 1->True)\n            self._value = \"\".join([str(int(pin.value)) for pin in self._pins])\n            #check if value matches target\n            if self._value == self._target:\n                self._defused = True\n            sleep(0.1)\n#       self._running = False\n\n    # returns the toggle switches state as a string\n    def __str__(self):\n        if self._defused:\n            return \"DEFUSED\"\n        else:\n            return f\"{self._value}/{int(self._value, 2)}\"\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/bomb_phases.py b/bomb_phases.py
+---- a/bomb_phases.py	(revision 1c3ccaae263d7be16f942ba1fa88eee953fee7af)
+-+++ b/bomb_phases.py	(date 1745428357833)
+-@@ -311,6 +311,7 @@
+-         self._running = True
+-         while (self._running):
+-             # get the toggle switch values (0->False, 1->True)
+-+            
+-             self._value = "".join([str(int(pin.value)) for pin in self._pins])
+-             #check if value matches target
+-             if self._value == self._target:
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"toggles class super()\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/bomb_phases.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/bomb_phases.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;dayflay&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/dayflay/final-project.git&quot;,\n    &quot;accountId&quot;: &quot;c916f783-d6ad-4d4f-89d2-a6a328b6dae4&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 4\n}</component>\n  <component name=\"ProjectId\" id=\"2vBN3mvItItH7et6uPp5Nhevu4M\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/flate/OneDrive/Desktop/Classes/CompSci2/final-project/modules&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\flate\\OneDrive\\Desktop\\Classes\\CompSci2\\final-project\\modules\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220\" />\n        <option value=\"bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"\" />\n      <created>1743614311055</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1743614311055</updated>\n      <workItem from=\"1745255121223\" duration=\"625000\" />\n      <workItem from=\"1745255754575\" duration=\"2349000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Create abstract class for modules\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1743614476479</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1743614476479</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998073281</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998073281</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998136181</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998136181</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255628350</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255628350</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255775105</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255775105</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"toggles class super()\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745257707050</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745257707050</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Create abstract class for modules\" />\n    <MESSAGE value=\"test\" />\n    <MESSAGE value=\"moved quit button closer to pause\" />\n    <MESSAGE value=\"Merge remote-tracking branch 'origin/main'\" />\n    <MESSAGE value=\"bomb phases -&gt; toggles class\" />\n    <MESSAGE value=\"toggles class super()\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"toggles class super()\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/final_project$bomb.coverage\" NAME=\"bomb Coverage Results\" MODIFIED=\"1744997988259\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_test.coverage\" NAME=\"bomb-test Coverage Results\" MODIFIED=\"1744997668815\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_phases.coverage\" NAME=\"bomb_phases Coverage Results\" MODIFIED=\"1744998033821\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 1c3ccaae263d7be16f942ba1fa88eee953fee7af)
+-+++ b/.idea/workspace.xml	(date 1745428291815)
+-@@ -4,9 +4,8 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="toggles class super()">
+-+    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="toggles class">
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/bomb_phases.py" beforeDir="false" afterPath="$PROJECT_DIR$/bomb_phases.py" afterDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-@@ -80,7 +79,8 @@
+-       <option name="presentableId" value="Default" />
+-       <updated>1743614311055</updated>
+-       <workItem from="1745255121223" duration="625000" />
+--      <workItem from="1745255754575" duration="2349000" />
+-+      <workItem from="1745255754575" duration="3309000" />
+-+      <workItem from="1745427716636" duration="574000" />
+-     </task>
+-     <task id="LOCAL-00001" summary="Create abstract class for modules">
+-       <option name="closed" value="true" />
+-@@ -130,7 +130,15 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1745257707050</updated>
+-     </task>
+--    <option name="localTasksCounter" value="7" />
+-+    <task id="LOCAL-00007" summary="toggles class">
+-+      <option name="closed" value="true" />
+-+      <created>1745258134053</created>
+-+      <option name="number" value="00007" />
+-+      <option name="presentableId" value="LOCAL-00007" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1745258134053</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="8" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+-@@ -154,7 +162,8 @@
+-     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
+-     <MESSAGE value="bomb phases -&gt; toggles class" />
+-     <MESSAGE value="toggles class super()" />
+--    <option name="LAST_COMMIT_MESSAGE" value="toggles class super()" />
+-+    <MESSAGE value="toggles class" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="toggles class" />
+-   </component>
+-   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-     <SUITE FILE_PATH="coverage/final_project$bomb.coverage" NAME="bomb Coverage Results" MODIFIED="1744997988259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_12PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_12PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_12PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_12PM__Changes_.xml	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ /dev/null	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_4_23_25,_1_12 PM_[Changes]" date="1745428359849" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_12 PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 4/23/25, 1:12 PM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_23 PM_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_23 PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_23 PM_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_23 PM_[Changes]/shelved.patch	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ /dev/null	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
+@@ -1,92 +0,0 @@
+-Index: bomb_phases.py
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>#################################\n# CSC 102 Defuse the Bomb Project\n# GUI and Phase class definitions\n# Team: \n#################################\n\n# import the configs\nfrom bomb_configs import *\n# other imports\nfrom tkinter import *\nimport tkinter\nfrom threading import Thread\nfrom time import sleep\nimport os\nimport sys\n\n#########\n# classes\n#########\n# the LCD display GUI\nclass Lcd(Frame):\n    def __init__(self, window):\n        super().__init__(window, bg=\"black\")\n        # make the GUI fullscreen\n        window.attributes(\"-fullscreen\", True)\n        # we need to know about the timer (7-segment display) to be able to pause/unpause it\n        self._timer = None\n        # we need to know about the pushbutton to turn off its LED when the program exits\n        self._button = None\n        # setup the initial \"boot\" GUI\n        self.setupBoot()\n\n    # sets up the LCD \"boot\" GUI\n    def setupBoot(self):\n        # set column weights\n        self.columnconfigure(0, weight=1)\n        self.columnconfigure(1, weight=2)\n        self.columnconfigure(2, weight=1)\n        # the scrolling informative \"boot\" text\n        self._lscroll = Label(self, bg=\"black\", fg=\"white\", font=(\"Courier New\", 14), text=\"\", justify=LEFT)\n        self._lscroll.grid(row=0, column=0, columnspan=3, sticky=W)\n        self.pack(fill=BOTH, expand=True)\n\n    # sets up the LCD GUI\n    def setup(self):\n        # the timer\n        self._ltimer = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Time left: \")\n        self._ltimer.grid(row=1, column=0, columnspan=3, sticky=W)\n        # the keypad passphrase\n        self._lkeypad = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Keypad phase: \")\n        self._lkeypad.grid(row=2, column=0, columnspan=3, sticky=W)\n        # the jumper wires status\n        self._lwires = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Wires phase: \")\n        self._lwires.grid(row=3, column=0, columnspan=3, sticky=W)\n        # the pushbutton status\n        self._lbutton = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Button phase: \")\n        self._lbutton.grid(row=4, column=0, columnspan=3, sticky=W)\n        # the toggle switches status\n        self._ltoggles = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Toggles phase: \")\n        self._ltoggles.grid(row=5, column=0, columnspan=2, sticky=W)\n        # the strikes left\n        self._lstrikes = Label(self, bg=\"black\", fg=\"#00ff00\", font=(\"Courier New\", 18), text=\"Strikes left: \")\n        self._lstrikes.grid(row=5, column=2, sticky=W)\n        if (SHOW_BUTTONS):\n            # the pause button (pauses the timer)\n            self._bpause = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Pause\", anchor=CENTER, command=self.pause)\n            self._bpause.grid(row=6, column=0, pady=40)\n            # the quit button\n            self._bquit = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Quit\", anchor=CENTER, command=self.quit)\n            self._bquit.grid(row=6, column=2, pady=40)\n\n    # lets us pause/unpause the timer (7-segment display)\n    def setTimer(self, timer):\n        self._timer = timer\n\n    # lets us turn off the pushbutton's RGB LED\n    def setButton(self, button):\n        self._button = button\n\n    # pauses the timer\n    def pause(self):\n        if (RPi):\n            self._timer.pause()\n\n    # setup the conclusion GUI (explosion/defusion)\n    def conclusion(self, success=False):\n        # destroy/clear widgets that are no longer needed\n        self._lscroll[\"text\"] = \"\"\n        self._ltimer.destroy()\n        self._lkeypad.destroy()\n        self._lwires.destroy()\n        self._lbutton.destroy()\n        self._ltoggles.destroy()\n        self._lstrikes.destroy()\n        if (SHOW_BUTTONS):\n            self._bpause.destroy()\n            self._bquit.destroy()\n\n        # reconfigure the GUI\n        # the retry button\n        self._bretry = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Retry\", anchor=CENTER, command=self.retry)\n        self._bretry.grid(row=1, column=0, pady=40)\n        # the quit button\n        self._bquit = tkinter.Button(self, bg=\"red\", fg=\"white\", font=(\"Courier New\", 18), text=\"Quit\", anchor=CENTER, command=self.quit)\n        self._bquit.grid(row=1, column=2, pady=40)\n\n    # re-attempts the bomb (after an explosion or a successful defusion)\n    def retry(self):\n        # re-launch the program (and exit this one)\n        os.execv(sys.executable, [\"python3\"] + [sys.argv[0]])\n        exit(0)\n\n    # quits the GUI, resetting some components\n    def quit(self):\n        if (RPi):\n            # turn off the 7-segment display\n            self._timer._running = False\n            self._timer._component.blink_rate = 0\n            self._timer._component.fill(0)\n            # turn off the pushbutton's LED\n            for pin in self._button._rgb:\n                pin.value = True\n        # exit the application\n        exit(0)\n\n# template (superclass) for various bomb components/phases\nclass PhaseThread(Thread):\n    def __init__(self, name, component=None, target=None):\n        super().__init__(name=name, daemon=True)\n        # phases have an electronic component (which usually represents the GPIO pins)\n        self._component = component\n        # phases have a target value (e.g., a specific combination on the keypad, the proper jumper wires to \"cut\", etc)\n        self._target = target\n        # phases can be successfully defused\n        self._defused = False\n        # phases can be failed (which result in a strike)\n        self._failed = False\n        # phases have a value (e.g., a pushbutton can be True/Pressed or False/Released, several jumper wires can be \"cut\"/False, etc)\n        self._value = None\n        # phase threads are either running or not\n        self._running = False\n\n# the timer phase\nclass Timer(PhaseThread):\n    def __init__(self, component, initial_value, name=\"Timer\"):\n        super().__init__(name, component)\n        # the default value is the specified initial value\n        self._value = initial_value\n        # is the timer paused?\n        self._paused = False\n        # initialize the timer's minutes/seconds representation\n        self._min = \"\"\n        self._sec = \"\"\n        # by default, each tick is 1 second\n        self._interval = 1\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        while (self._running):\n            if (not self._paused):\n                # update the timer and display its value on the 7-segment display\n                self._update()\n                self._component.print(str(self))\n                # wait 1s (default) and continue\n                sleep(self._interval)\n                # the timer has expired -> phase failed (explode)\n                if (self._value == 0):\n                    self._running = False\n                self._value -= 1\n            else:\n                sleep(0.1)\n\n    # updates the timer (only internally called)\n    def _update(self):\n        self._min = f\"{self._value // 60}\".zfill(2)\n        self._sec = f\"{self._value % 60}\".zfill(2)\n\n    # pauses and unpauses the timer\n    def pause(self):\n        # toggle the paused state\n        self._paused = not self._paused\n        # blink the 7-segment display when paused\n        self._component.blink_rate = (2 if self._paused else 0)\n\n    # returns the timer as a string (mm:ss)\n    def __str__(self):\n        return f\"{self._min}:{self._sec}\"\n\n# the keypad phase\nclass Keypad(PhaseThread):\n    def __init__(self, component, target, name=\"Keypad\"):\n        super().__init__(name, component, target)\n        # the default value is an empty string\n        self._value = \"\"\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        while (self._running):\n            # process keys when keypad key(s) are pressed\n            if (self._component.pressed_keys):\n                # debounce\n                while (self._component.pressed_keys):\n                    try:\n                        # just grab the first key pressed if more than one were pressed\n                        key = self._component.pressed_keys[0]\n                    except:\n                        key = \"\"\n                    sleep(0.1)\n                # log the key\n                self._value += str(key)\n                # the combination is correct -> phase defused\n                if (self._value == self._target):\n                    self._defused = True\n                # the combination is incorrect -> phase failed (strike)\n                elif (self._value != self._target[0:len(self._value)]):\n                    self._failed = True\n            sleep(0.1)\n\n    # returns the keypad combination as a string\n    def __str__(self):\n        if (self._defused):\n            return \"DEFUSED\"\n        else:\n            return self._value\n\n# the jumper wires phase\nclass Wires(PhaseThread):\n    def __init__(self, component, target, name=\"Wires\"):\n        super().__init__(name, component, target)\n        #self._value = \"\"\n       \n\n    # runs the thread\n    def run(self):\n        self._running = True\n        while self._running:\n            # Read the state of each pin (HIGH or LOW) and build a binary string\n            self._value = \"\"\n            for pin in self._component:\n                if pin.value:  # True means HIGH\n                    self._value += \"1\"\n                else:\n                    self._value += \"0\"\n\n            # Check if it matches the target\n            if self._value == self._target:\n                self._defused = True\n                self._running = False  # stop the loop if defused\n            time.sleep(0.1)  # delay to avoid constant polling\n        # TODO\n        #pass\n        #self._running = True\n        #while(self._running == True):\n\n    # returns the jumper wires' state as a binary string\n    def __str__(self):\n        if (self._defused):\n            return \"DEFUSED\"\n        else:\n            # TODO\n            #return self._value\n\n# the pushbutton phase\nclass Button(PhaseThread):\n    def __init__(self, component_state, component_rgb, target, color, timer, name=\"Button\"):\n        super().__init__(name, component_state, target)\n        # the default value is False/Released\n        self._value = False\n        # has the pushbutton been pressed?\n        self._pressed = False\n        # we need the pushbutton's RGB pins to set its color\n        self._rgb = component_rgb\n        # the pushbutton's randomly selected LED color\n        self._color = color\n        # we need to know about the timer (7-segment display) to be able to determine correct pushbutton releases in some cases\n        self._timer = timer\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        # set the RGB LED color\n        self._rgb[0].value = False if self._color == \"R\" else True\n        self._rgb[1].value = False if self._color == \"G\" else True\n        self._rgb[2].value = False if self._color == \"B\" else True\n        while (self._running):\n            # get the pushbutton's state\n            self._value = self._component.value\n            # it is pressed\n            if (self._value):\n                # note it\n                self._pressed = True\n            # it is released\n            else:\n                # was it previously pressed?\n                if (self._pressed):\n                    # check the release parameters\n                    # for R, nothing else is needed\n                    # for G or B, a specific digit must be in the timer (sec) when released\n                    if (not self._target or self._target in self._timer._sec):\n                        self._defused = True\n                    else:\n                        self._failed = True\n                    # note that the pushbutton was released\n                    self._pressed = False\n            sleep(0.1)\n\n    # returns the pushbutton's state as a string\n    def __str__(self):\n        if (self._defused):\n            return \"DEFUSED\"\n        else:\n            return str(\"Pressed\" if self._value else \"Released\")\n\n# the toggle switches phase\nclass Toggles(PhaseThread):\n    def __init__(self, pins, component, target, name=\"Toggles\"):\n        super().__init__(name = name, component = component, target = target)\n        self._value = \"\"\n        # the toggle switch pins\n        self._pins = pins\n\n    # runs the thread\n    def run(self):\n        self._running = True\n        while (self._running):\n            # get the toggle switch values (0->False, 1->True)\n            self._value = \"\".join([str(int(pin.value)) for pin in self._pins])\n            #check if value matches target\n            if self._value == self._target:\n                self._defused = True\n            sleep(0.1)\n#       self._running = False\n\n    # returns the toggle switches state as a string\n    def __str__(self):\n        if self._defused:\n            return \"DEFUSED\"\n        else:\n            return f\"{self._value}/{int(self._value, 2)}\"\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/bomb_phases.py b/bomb_phases.py
+---- a/bomb_phases.py	(revision 8265e9a766a2f67f085e86de5b06f078fd33e30a)
+-+++ b/bomb_phases.py	(date 1745428986204)
+-@@ -315,17 +315,23 @@
+- 
+- # the toggle switches phase
+- class Toggles(PhaseThread):
+--    def __init__(self, pins, component, target, name="Toggles"):
+-+    def __init__(self, component, target, name="Toggles"):
+-         super().__init__(name = name, component = component, target = target)
+-         self._value = ""
+-         # the toggle switch pins
+--        self._pins = pins
+-+        self._pins = self._component
+- 
+-     # runs the thread
+-     def run(self):
+-         self._running = True
+-         while (self._running):
+-             # get the toggle switch values (0->False, 1->True)
+-+            for pin in self._component:
+-+                if pin.value:  # True means HIGH
+-+                    self._value += "1"
+-+                else:
+-+                    self._value += "0"
+-+            
+-             self._value = "".join([str(int(pin.value)) for pin in self._pins])
+-             #check if value matches target
+-             if self._value == self._target:
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"toggles class super()\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/bomb_phases.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/bomb_phases.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;dayflay&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/dayflay/final-project.git&quot;,\n    &quot;accountId&quot;: &quot;c916f783-d6ad-4d4f-89d2-a6a328b6dae4&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 4\n}</component>\n  <component name=\"ProjectId\" id=\"2vBN3mvItItH7et6uPp5Nhevu4M\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/flate/OneDrive/Desktop/Classes/CompSci2/final-project/modules&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\flate\\OneDrive\\Desktop\\Classes\\CompSci2\\final-project\\modules\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220\" />\n        <option value=\"bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"\" />\n      <created>1743614311055</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1743614311055</updated>\n      <workItem from=\"1745255121223\" duration=\"625000\" />\n      <workItem from=\"1745255754575\" duration=\"2349000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Create abstract class for modules\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1743614476479</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1743614476479</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998073281</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998073281</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998136181</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998136181</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255628350</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255628350</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255775105</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255775105</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"toggles class super()\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745257707050</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745257707050</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Create abstract class for modules\" />\n    <MESSAGE value=\"test\" />\n    <MESSAGE value=\"moved quit button closer to pause\" />\n    <MESSAGE value=\"Merge remote-tracking branch 'origin/main'\" />\n    <MESSAGE value=\"bomb phases -&gt; toggles class\" />\n    <MESSAGE value=\"toggles class super()\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"toggles class super()\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/final_project$bomb.coverage\" NAME=\"bomb Coverage Results\" MODIFIED=\"1744997988259\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_test.coverage\" NAME=\"bomb-test Coverage Results\" MODIFIED=\"1744997668815\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_phases.coverage\" NAME=\"bomb_phases Coverage Results\" MODIFIED=\"1744998033821\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision 8265e9a766a2f67f085e86de5b06f078fd33e30a)
+-+++ b/.idea/workspace.xml	(date 1745428986243)
+-@@ -4,7 +4,7 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="toggles class super()">
+-+    <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="toggles class">
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-       <change beforePath="$PROJECT_DIR$/bomb_phases.py" beforeDir="false" afterPath="$PROJECT_DIR$/bomb_phases.py" afterDir="false" />
+-     </list>
+-@@ -80,7 +80,8 @@
+-       <option name="presentableId" value="Default" />
+-       <updated>1743614311055</updated>
+-       <workItem from="1745255121223" duration="625000" />
+--      <workItem from="1745255754575" duration="2349000" />
+-+      <workItem from="1745255754575" duration="3309000" />
+-+      <workItem from="1745427716636" duration="1265000" />
+-     </task>
+-     <task id="LOCAL-00001" summary="Create abstract class for modules">
+-       <option name="closed" value="true" />
+-@@ -130,7 +131,15 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1745257707050</updated>
+-     </task>
+--    <option name="localTasksCounter" value="7" />
+-+    <task id="LOCAL-00007" summary="toggles class">
+-+      <option name="closed" value="true" />
+-+      <created>1745258134053</created>
+-+      <option name="number" value="00007" />
+-+      <option name="presentableId" value="LOCAL-00007" />
+-+      <option name="project" value="LOCAL" />
+-+      <updated>1745258134053</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="8" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+-@@ -154,7 +163,8 @@
+-     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
+-     <MESSAGE value="bomb phases -&gt; toggles class" />
+-     <MESSAGE value="toggles class super()" />
+--    <option name="LAST_COMMIT_MESSAGE" value="toggles class super()" />
+-+    <MESSAGE value="toggles class" />
+-+    <option name="LAST_COMMIT_MESSAGE" value="toggles class" />
+-   </component>
+-   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-     <SUITE FILE_PATH="coverage/final_project$bomb.coverage" NAME="bomb Coverage Results" MODIFIED="1744997988259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_23PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_23PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_23PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_23PM__Changes_.xml	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ /dev/null	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_4_23_25,_1_23 PM_[Changes]" date="1745428997715" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_23 PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 4/23/25, 1:23 PM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_38PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_38PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_38PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_38PM__Changes_.xml	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ /dev/null	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_4_23_25,_1_38 PM_[Changes]" date="1745429930806" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_38 PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 4/23/25, 1:38 PM [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"module 3\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;dayflay&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/dayflay/final-project.git&quot;,\n    &quot;accountId&quot;: &quot;c916f783-d6ad-4d4f-89d2-a6a328b6dae4&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 4\n}</component>\n  <component name=\"ProjectId\" id=\"2vBN3mvItItH7et6uPp5Nhevu4M\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/flate/OneDrive/Desktop/Classes/CompSci2/final-project/modules&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\flate\\OneDrive\\Desktop\\Classes\\CompSci2\\final-project\\modules\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220\" />\n        <option value=\"bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"13b954fd-cd97-43b3-abc3-8b22463c55d7\" name=\"Changes\" comment=\"\" />\n      <created>1743614311055</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1743614311055</updated>\n      <workItem from=\"1745255121223\" duration=\"625000\" />\n      <workItem from=\"1745255754575\" duration=\"3309000\" />\n      <workItem from=\"1745427716636\" duration=\"1265000\" />\n      <workItem from=\"1745729547966\" duration=\"730000\" />\n      <workItem from=\"1745859713667\" duration=\"1552000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Create abstract class for modules\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1743614476479</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1743614476479</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998073281</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998073281</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"test\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1744998136181</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1744998136181</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255628350</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255628350</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"bomb phases -&gt; toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745255775105</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745255775105</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"toggles class super()\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745257707050</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745257707050</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"toggles class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745258134053</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745258134053</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"module 3 and button\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745603204989</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745603204989</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"module 3 fix\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745603247362</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745603247362</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"module 3\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745604479379</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745604479379</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"module 3\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745860696140</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745860696140</updated>\n    </task>\n    <task id=\"LOCAL-00012\" summary=\"module 3\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1745863083989</created>\n      <option name=\"number\" value=\"00012\" />\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1745863083989</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"13\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Create abstract class for modules\" />\n    <MESSAGE value=\"test\" />\n    <MESSAGE value=\"moved quit button closer to pause\" />\n    <MESSAGE value=\"Merge remote-tracking branch 'origin/main'\" />\n    <MESSAGE value=\"bomb phases -&gt; toggles class\" />\n    <MESSAGE value=\"toggles class super()\" />\n    <MESSAGE value=\"toggles class\" />\n    <MESSAGE value=\"module 3 and button\" />\n    <MESSAGE value=\"module 3 fix\" />\n    <MESSAGE value=\"module 3\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"module 3\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/final_project$bomb.coverage\" NAME=\"bomb Coverage Results\" MODIFIED=\"1744997988259\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_test.coverage\" NAME=\"bomb-test Coverage Results\" MODIFIED=\"1744997668815\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n    <SUITE FILE_PATH=\"coverage/final_project$bomb_phases.coverage\" NAME=\"bomb_phases Coverage Results\" MODIFIED=\"1744998033821\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ee8f5555f0e842831ecfd42ef63ebd2f65289b52)
++++ b/.idea/workspace.xml	(date 1746124898867)
+@@ -5,7 +5,14 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="13b954fd-cd97-43b3-abc3-8b22463c55d7" name="Changes" comment="module 3">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_12 PM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_23 PM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25,_1_38 PM_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_12PM__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_23PM__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_25__1_38PM__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/modules/module3.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/module3.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -42,21 +49,22 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/flate/OneDrive/Desktop/Classes/CompSci2/final-project/modules&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "Python.module3.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "git-widget-placeholder": "main",
++    "last_opened_file_path": "C:/Users/flate/OneDrive/Desktop/Classes/CompSci2/final-project/modules",
++    "node.js.detected.package.eslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\flate\OneDrive\Desktop\Classes\CompSci2\final-project\modules" />
+@@ -83,6 +91,7 @@
+       <workItem from="1745427716636" duration="1265000" />
+       <workItem from="1745729547966" duration="730000" />
+       <workItem from="1745859713667" duration="1552000" />
++      <workItem from="1746032312896" duration="4090000" />
+     </task>
+     <task id="LOCAL-00001" summary="Create abstract class for modules">
+       <option name="closed" value="true" />
+@@ -180,7 +189,231 @@
+       <option name="project" value="LOCAL" />
+       <updated>1745863083989</updated>
+     </task>
+-    <option name="localTasksCounter" value="13" />
++    <task id="LOCAL-00013" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1745863808648</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1745863808648</updated>
++    </task>
++    <task id="LOCAL-00014" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1745863864703</created>
++      <option name="number" value="00014" />
++      <option name="presentableId" value="LOCAL-00014" />
++      <option name="project" value="LOCAL" />
++      <updated>1745863864703</updated>
++    </task>
++    <task id="LOCAL-00015" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1745864073663</created>
++      <option name="number" value="00015" />
++      <option name="presentableId" value="LOCAL-00015" />
++      <option name="project" value="LOCAL" />
++      <updated>1745864073663</updated>
++    </task>
++    <task id="LOCAL-00016" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1745864084922</created>
++      <option name="number" value="00016" />
++      <option name="presentableId" value="LOCAL-00016" />
++      <option name="project" value="LOCAL" />
++      <updated>1745864084922</updated>
++    </task>
++    <task id="LOCAL-00017" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746032808781</created>
++      <option name="number" value="00017" />
++      <option name="presentableId" value="LOCAL-00017" />
++      <option name="project" value="LOCAL" />
++      <updated>1746032808781</updated>
++    </task>
++    <task id="LOCAL-00018" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746032981336</created>
++      <option name="number" value="00018" />
++      <option name="presentableId" value="LOCAL-00018" />
++      <option name="project" value="LOCAL" />
++      <updated>1746032981336</updated>
++    </task>
++    <task id="LOCAL-00019" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746033105323</created>
++      <option name="number" value="00019" />
++      <option name="presentableId" value="LOCAL-00019" />
++      <option name="project" value="LOCAL" />
++      <updated>1746033105323</updated>
++    </task>
++    <task id="LOCAL-00020" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746033371464</created>
++      <option name="number" value="00020" />
++      <option name="presentableId" value="LOCAL-00020" />
++      <option name="project" value="LOCAL" />
++      <updated>1746033371464</updated>
++    </task>
++    <task id="LOCAL-00021" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746033457866</created>
++      <option name="number" value="00021" />
++      <option name="presentableId" value="LOCAL-00021" />
++      <option name="project" value="LOCAL" />
++      <updated>1746033457866</updated>
++    </task>
++    <task id="LOCAL-00022" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746033659545</created>
++      <option name="number" value="00022" />
++      <option name="presentableId" value="LOCAL-00022" />
++      <option name="project" value="LOCAL" />
++      <updated>1746033659545</updated>
++    </task>
++    <task id="LOCAL-00023" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746033937360</created>
++      <option name="number" value="00023" />
++      <option name="presentableId" value="LOCAL-00023" />
++      <option name="project" value="LOCAL" />
++      <updated>1746033937360</updated>
++    </task>
++    <task id="LOCAL-00024" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034172172</created>
++      <option name="number" value="00024" />
++      <option name="presentableId" value="LOCAL-00024" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034172172</updated>
++    </task>
++    <task id="LOCAL-00025" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034274910</created>
++      <option name="number" value="00025" />
++      <option name="presentableId" value="LOCAL-00025" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034274910</updated>
++    </task>
++    <task id="LOCAL-00026" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034373595</created>
++      <option name="number" value="00026" />
++      <option name="presentableId" value="LOCAL-00026" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034373595</updated>
++    </task>
++    <task id="LOCAL-00027" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034495780</created>
++      <option name="number" value="00027" />
++      <option name="presentableId" value="LOCAL-00027" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034495780</updated>
++    </task>
++    <task id="LOCAL-00028" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034568923</created>
++      <option name="number" value="00028" />
++      <option name="presentableId" value="LOCAL-00028" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034568923</updated>
++    </task>
++    <task id="LOCAL-00029" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034632352</created>
++      <option name="number" value="00029" />
++      <option name="presentableId" value="LOCAL-00029" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034632352</updated>
++    </task>
++    <task id="LOCAL-00030" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034694517</created>
++      <option name="number" value="00030" />
++      <option name="presentableId" value="LOCAL-00030" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034694517</updated>
++    </task>
++    <task id="LOCAL-00031" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034781797</created>
++      <option name="number" value="00031" />
++      <option name="presentableId" value="LOCAL-00031" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034781797</updated>
++    </task>
++    <task id="LOCAL-00032" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746034853895</created>
++      <option name="number" value="00032" />
++      <option name="presentableId" value="LOCAL-00032" />
++      <option name="project" value="LOCAL" />
++      <updated>1746034853895</updated>
++    </task>
++    <task id="LOCAL-00033" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746035017176</created>
++      <option name="number" value="00033" />
++      <option name="presentableId" value="LOCAL-00033" />
++      <option name="project" value="LOCAL" />
++      <updated>1746035017176</updated>
++    </task>
++    <task id="LOCAL-00034" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746035144843</created>
++      <option name="number" value="00034" />
++      <option name="presentableId" value="LOCAL-00034" />
++      <option name="project" value="LOCAL" />
++      <updated>1746035144843</updated>
++    </task>
++    <task id="LOCAL-00035" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746035243248</created>
++      <option name="number" value="00035" />
++      <option name="presentableId" value="LOCAL-00035" />
++      <option name="project" value="LOCAL" />
++      <updated>1746035243248</updated>
++    </task>
++    <task id="LOCAL-00036" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746035312637</created>
++      <option name="number" value="00036" />
++      <option name="presentableId" value="LOCAL-00036" />
++      <option name="project" value="LOCAL" />
++      <updated>1746035312637</updated>
++    </task>
++    <task id="LOCAL-00037" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746035362975</created>
++      <option name="number" value="00037" />
++      <option name="presentableId" value="LOCAL-00037" />
++      <option name="project" value="LOCAL" />
++      <updated>1746035362975</updated>
++    </task>
++    <task id="LOCAL-00038" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746035400901</created>
++      <option name="number" value="00038" />
++      <option name="presentableId" value="LOCAL-00038" />
++      <option name="project" value="LOCAL" />
++      <updated>1746035400901</updated>
++    </task>
++    <task id="LOCAL-00039" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746036112874</created>
++      <option name="number" value="00039" />
++      <option name="presentableId" value="LOCAL-00039" />
++      <option name="project" value="LOCAL" />
++      <updated>1746036112874</updated>
++    </task>
++    <task id="LOCAL-00040" summary="module 3">
++      <option name="closed" value="true" />
++      <created>1746036284286</created>
++      <option name="number" value="00040" />
++      <option name="presentableId" value="LOCAL-00040" />
++      <option name="project" value="LOCAL" />
++      <updated>1746036284286</updated>
++    </task>
++    <option name="localTasksCounter" value="41" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -214,5 +447,6 @@
+     <SUITE FILE_PATH="coverage/final_project$bomb.coverage" NAME="bomb Coverage Results" MODIFIED="1744997988259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+     <SUITE FILE_PATH="coverage/final_project$bomb_test.coverage" NAME="bomb-test Coverage Results" MODIFIED="1744997668815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+     <SUITE FILE_PATH="coverage/final_project$bomb_phases.coverage" NAME="bomb_phases Coverage Results" MODIFIED="1744998033821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/final_project$module3.coverage" NAME="module3 Coverage Results" MODIFIED="1746124447042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+   </component>
+ </project>
+\ No newline at end of file
