@@ -19,7 +19,6 @@ class module4(aModule):
 
     def update(self, switches, button, wires, keypad, timer, screen):
         # Set text alignment to right while this module is active
-        screen._lscroll["anchor"] = "e"  # Right-aligned
         screen._lscroll["justify"] = "right"
 
         # Invert expected target for wires
@@ -45,5 +44,4 @@ class module4(aModule):
             keypad._defused = True
 
         if self.solve():
-            screen._lscroll["anchor"] = "w"
             screen._lscroll["justify"] = "left"
