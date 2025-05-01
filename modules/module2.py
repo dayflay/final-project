@@ -98,7 +98,7 @@ class module2(aModule):
 		self.booted = False
 		self.last_question = None
 
-		self.title_label, self.q1, self.q2, self.q3, self.q4 = None, None, None, None, None
+		self.title_label, self.q1, self.q2, self.q3, self.q4 = Label(), Label(), Label(), Label(), Label()
 
 
 	def get_current_question(self):
