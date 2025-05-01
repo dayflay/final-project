@@ -74,7 +74,7 @@ class Lcd(Frame):
     def setup(self):
         # the timer
         self._ltimer = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Time left: ")
-        self._ltimer.grid(row=1, column=3, columnspan=3, sticky=E)
+        self._ltimer.grid(row=1, column=4, columnspan=3, sticky=E)
         # the keypad passphrase
         self._lkeypad = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Keypad phase: ")
         self._lkeypad.grid(row=2, column=3, columnspan=3, sticky=E)
