@@ -115,7 +115,7 @@ class module2(aModule):
 		current_question = self.get_current_question()
 
 		if current_question != self.last_question:
-			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 12),
 									 text=f"({self.points}) {current_question.question}")
 			self.title_label.grid(row=2, column=1, pady=40)
 
@@ -141,10 +141,10 @@ class module2(aModule):
 
 		if keypad._value != "":
 			self.stage += 1
-			answer = keypad._value
+			answer = int(keypad._value) - 1
 			keypad._value = ""
 
-			if answer == current_question.answers.index(current_question.correct_answer):
+			if current_question.answers[answer - 1] == current_question.correct_answer:
 				self.points += 1
 
 #test_mod = module2()
