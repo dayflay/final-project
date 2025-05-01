@@ -28,7 +28,7 @@ class module3(aModule):
                 return target
 
     def solve(self):
-        if self.time_pressed >= 20 and (self.toggles._value == self.toggles_target):
+        if self.time_pressed >= 25 and (self.toggles._value == self.toggles_target):
             return True
         return False
 
@@ -36,11 +36,13 @@ class module3(aModule):
         if self.start_time is None:
             self.start_time = timer._value
 
+        if (self.time_pressed >= 20) and (self.toggles._value == self.toggles_target) == True:
+            screen.replace_all()
 
         self.toggles = switches
 
         if button._pressed:
-            self.time_pressed += 10
+            self.time_pressed += 0.5
 
         if floor(self.ticks) == 1:
             self.ticks = 0
@@ -53,7 +55,7 @@ class module3(aModule):
             self._defused = True
 
 
-        if not self.booted:
+        if not self.booted and self.toggles._value != self.toggles_target:
             self.booted = True
             screen.hide_all()
 
@@ -73,8 +75,8 @@ class module3(aModule):
                                      text=f"{self.toggles_target}")
             self.target_hint.grid(row=5, column=1, pady=10)
 
-            self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+        self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
                                    text=f"{self.time_pressed}")
-            self.time_held.grid(row=6, column=1, pady=10)
+        self.time_held.grid(row=6, column=1, pady=10)
 
 
