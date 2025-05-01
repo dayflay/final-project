@@ -29,7 +29,6 @@ class module3(aModule):
 
     def solve(self):
         if self.time_pressed >= 20 and (self.toggles._value == self.toggles_target):
-            self.title_label.grid_forget()
             return True
         return False
 
@@ -37,11 +36,13 @@ class module3(aModule):
         if self.start_time is None:
             self.start_time = timer._value
 
+        if (self.time_pressed >= 20) and (self.toggles._value == self.toggles_target) == True:
+            screen.replace_all()
 
         self.toggles = switches
 
         if button._pressed:
-            self.time_pressed += 1
+            self.time_pressed += 0.1
 
         if floor(self.ticks) == 1:
             self.ticks = 0
