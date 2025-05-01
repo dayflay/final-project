@@ -109,33 +109,38 @@ class module2(aModule):
 
 
 	def update(self, switches, button, wires, keypad, timer, screen):
-		current_question = self.get_current_question()
-
 		if not self.booted:
 			self.booted = True
 			screen.hide_all()
 
+		current_question = self.get_current_question()
+
+		if current_question != self.last_question:
 			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 12),
 									 text=f"({self.points}) {current_question.question}")
+			self.title_label.grid_forget()
 			self.title_label.grid(row=2, column=1, pady=40)
 
 			self.q1 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
-							text=f"1: {current_question.answers[0]}")
+									 text=f"1: {current_question.answers[0]}")
+			self.q1.grid_forget()
 			self.q1.grid(row=3, column=1, pady=40)
 
 			self.q2 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"2: {current_question.answers[1]}")
+			self.q2.grid_forget()
 			self.q2.grid(row=3, column=2, pady=40)
 
 			self.q3 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"3: {current_question.answers[2]}")
+			self.q3.grid_forget()
 			self.q3.grid(row=4, column=1, pady=40)
 
 			self.q4 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"4: {current_question.answers[3]}")
+			self.q4.grid_forget()
 			self.q4.grid(row=4, column=2, pady=40)
 
-		if current_question != self.last_question:
 			self.last_question = current_question
 
 		self.timing += 1
