@@ -28,7 +28,7 @@ class module3(aModule):
                 return target
 
     def solve(self):
-        if self.time_pressed >= 20 and (self.toggles._value == self.toggles_target):
+        if self.time_pressed >= 25 and (self.toggles._value == self.toggles_target):
             return True
         return False
 
@@ -42,7 +42,7 @@ class module3(aModule):
         self.toggles = switches
 
         if button._pressed:
-            self.time_pressed += 0.1
+            self.time_pressed += 0.5
 
         if floor(self.ticks) == 1:
             self.ticks = 0
@@ -55,7 +55,7 @@ class module3(aModule):
             self._defused = True
 
 
-        if not self.booted:
+        if not self.booted and self.toggles._value != self.toggles_target:
             self.booted = True
             screen.hide_all()
 
