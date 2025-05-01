@@ -4,6 +4,7 @@
 from modules.aModule import aModule
 import random
 from math import floor
+from tkinter import Label
 
 
 class module3(aModule):
@@ -42,25 +43,25 @@ class module3(aModule):
         self.toggles = switches
 
 
-        self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+        self.title_Label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
                                  text="land mine")
-        self.title_label.grid(row=2, column=1, pady=35)
+        self.title_Label.grid(row=2, column=1, pady=35)
 
-        self.description_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
+        self.description = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
                                        text="hold the button and dont let go!")
-        self.description_label.grid(row=3, column=1, pady=35)
+        self.description.grid(row=3, column=1, pady=35)
 
-        self.toggles_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
+        self.game_desc = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
                                    text="solve the toggles without blowing up the landmine")
-        self.toggles_label.grid(row=4, column=1, pady=35)
+        self.game_desc.grid(row=4, column=1, pady=35)
 
-        self.target_hint_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+        self.target_hint = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
                                        text=f"{self.toggles_target}")
-        self.target_hint_label.grid(row=5, column=1, pady=35)
+        self.target_hint.grid(row=5, column=1, pady=35)
 
-        self.button_timer_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+        self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
                                         text=f"{self.time_pressed}")
-        self.button_timer_label.grid(row=6, column=1, pady=35)
+        self.time_held.grid(row=6, column=1, pady=35)
 
 
 
