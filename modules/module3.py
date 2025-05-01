@@ -21,14 +21,21 @@ class module3(aModule):
         self.toggles_target = self.random_target()
 
     def random_target(self):
+        one_letters = ['A', 'C', 'E', 'G', 'I', 'K', 'M', 'O']
+        zero_letters = ['B', 'D', 'F', 'H', 'J', 'L', 'N', 'P']
+
         # Ensure the target is not all 0s or all 1s
         while True:
             target = ''.join(random.choice('01') for _ in range(4))
             if '0' in target and '1' in target:  # Must have at least one 0 and one 1
+                self.letter_hint = ''.join(
+                    random.choice(one_letters) if bit == '1' else random.choice(zero_letters)
+                    for bit in target
+                )
                 return target
 
     def solve(self):
-        if self.time_pressed >= 25 and (self.toggles._value == self.toggles_target):
+        if self.time_pressed >= 40 and (self.toggles._value == self.toggles_target):
             return True
         return False
 
@@ -36,7 +43,8 @@ class module3(aModule):
         if self.start_time is None:
             self.start_time = timer._value
 
-        if (self.time_pressed >= 20) and (self.toggles._value == self.toggles_target) == True:
+        if (self.time_pressed >= 40) and (self.toggles._value == self.toggles_target) == True:
+            screen.hide_all()
             screen.replace_all()
 
         self.toggles = switches
@@ -76,7 +84,7 @@ class module3(aModule):
             self.target_hint.grid(row=5, column=1, pady=10)
 
         self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
-                                   text=f"{self.time_pressed}")
+                                   text=f"Target code: {self.letter_hint}")
         self.time_held.grid(row=6, column=1, pady=10)
 
 
