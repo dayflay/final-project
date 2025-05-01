@@ -98,6 +98,9 @@ class module2(aModule):
 		self.booted = False
 		self.last_question = None
 
+		self.title_label, self.q1, self.q2, self.q3, self.q4 = None, None, None, None, None
+
+
 	def get_current_question(self):
 		return self.questions[self.stage]
 
@@ -116,26 +119,31 @@ class module2(aModule):
 		current_question = self.get_current_question()
 
 		if current_question != self.last_question:
+			self.title_label.destroy()
 			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 12),
 									 text=f"({self.points}) {current_question.question}")
 			self.title_label.grid_forget()
 			self.title_label.grid(row=2, column=1, pady=40)
 
+			self.q1.destroy()
 			self.q1 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 									 text=f"1: {current_question.answers[0]}")
 			self.q1.grid_forget()
 			self.q1.grid(row=3, column=1, pady=40)
 
+			self.q2.destroy()
 			self.q2 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"2: {current_question.answers[1]}")
 			self.q2.grid_forget()
 			self.q2.grid(row=3, column=2, pady=40)
 
+			self.q3.destroy()
 			self.q3 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"3: {current_question.answers[2]}")
 			self.q3.grid_forget()
 			self.q3.grid(row=4, column=1, pady=40)
 
+			self.q4.destroy()
 			self.q4 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"4: {current_question.answers[3]}")
 			self.q4.grid_forget()
