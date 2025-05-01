@@ -2,8 +2,10 @@
 Module that reverses the combination: the displayed values for toggles and wires are inverted relative to actual inputs.
 """
 from modules.aModule import aModule
+from bomb_phases import *
+from bomb_configs import *
 
-class NLcd(Frame):
+class Lcd(Frame):
     def __init__(self, window):
         super().__init__(window, bg="black")
         # make the GUI fullscreen
