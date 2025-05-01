@@ -18,17 +18,10 @@ class module4(aModule):
         return ''.join('1' if b == '0' else '0' for b in bits)
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        inverted_wvalue = self.invert(wires._value)
-        # Display it in the GUI (e.g., LCD screen text)
-        screen._lscroll["text"] = inverted_wvalue
-
-        inverted_svalue = self.invert(switches._value)
-        # Display it in the GUI (e.g., LCD screen text)
-        screen._lscroll["text"] = inverted_svalue
-
         # Set text alignment to right while this module is active
         screen._lscroll["anchor"] = "e"  # Right-aligned
         screen._lscroll["justify"] = "right"
+
         # Invert expected target for wires
         expected_wires = self.invert(wires._target)
         if wires._value == expected_wires and not wires._defused:
@@ -53,3 +46,4 @@ class module4(aModule):
 
         if self.solve():
             screen._lscroll["anchor"] = "w"
+            screen._lscroll["justify"] = "left"
