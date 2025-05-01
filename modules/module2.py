@@ -158,7 +158,7 @@ class module2(aModule):
 			answer = int(keypad._value) - 1
 			keypad._value = ""
 
-			if current_question.answers[answer - 1] == current_question.correct_answer:
+			if current_question.answers[answer] == current_question.correct_answer:
 				self.points += 1
 
 #test_mod = module2()
