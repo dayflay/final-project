@@ -31,7 +31,7 @@ class module3(aModule):
             return True
         return False
 
-    def update(self, switches, button, wires, keypad, timer, gui, screen):
+    def update(self, switches, button, wires, keypad, timer, screen):
         if self.start_time is None:
             self.start_time = timer._value
 
