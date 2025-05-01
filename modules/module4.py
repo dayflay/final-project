@@ -90,3 +90,10 @@ class Lcd(Frame):
         # the strikes left
         self._lstrikes = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Strikes left: ")
         self._lstrikes.grid(row=5, column=3, sticky=E)
+        if (SHOW_BUTTONS):
+            # the pause button (pauses the timer)
+            self._bpause = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 18), text="Pause", anchor=CENTER, command=self.pause)
+            self._bpause.grid(row=6, column=0, pady=40)
+            # the quit button
+            self._bquit = tkinter.Button(self, bg="red", fg="white", font=("Courier New", 18), text="Quit", anchor=CENTER, command=self.quit)
+            self._bquit.grid(row=6, column=2, pady=40)
