@@ -4,6 +4,7 @@
 from modules.aModule import aModule
 import random
 from math import floor
+from tkinter import Label
 
 
 class module3(aModule):
@@ -14,6 +15,7 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self.ticks = 0
+        self.booted = False
 
         # Generate a random target
         self.toggles_target = self.random_target()
@@ -30,9 +32,10 @@ class module3(aModule):
             return True
         return False
 
-    def update(self, switches, button, wires, keypad, timer, gui):
+    def update(self, switches, button, wires, keypad, timer, screen):
         if self.start_time is None:
             self.start_time = timer._value
+
 
         self.toggles = switches
 
@@ -46,6 +49,32 @@ class module3(aModule):
         else:
             self.ticks += 0.1
 
-
         if self.solve():
             self._defused = True
+
+
+        if not self.booted:
+            self.booted = True
+            screen.hide_all()
+
+            self.title_Label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+                                     text="land mine")
+            self.title_Label.grid(row=2, column=1, pady=10)
+
+            self.description = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
+                                     text="hold the button and dont let go!")
+            self.description.grid(row=3, column=1, pady=10)
+
+            self.game_desc = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
+                                   text="solve the toggles without blowing up the landmine")
+            self.game_desc.grid(row=4, column=1, pady=10)
+
+            self.target_hint = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+                                     text=f"{self.toggles_target}")
+            self.target_hint.grid(row=5, column=1, pady=10)
+
+            self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+                                   text=f"{self.time_pressed}")
+            self.time_held.grid(row=6, column=1, pady=10)
+
+

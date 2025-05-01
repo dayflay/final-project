@@ -71,12 +71,31 @@ class Lcd(Frame):
             self._bquit.grid(row=6, column=2, pady=40)
 
     def hide_all(self):
-        self._ltimer.grid_forget()
         self._lwires.grid_forget()
         self._lkeypad.grid_forget()
         self._lbutton.grid_forget()
         self._ltoggles.grid_forget()
         self._lstrikes.grid_forget()
+        self._lscroll.grid_forget()
+
+    def replace_all(self):
+        # the timer
+        self._ltimer.grid(row=1, column=0, columnspan=3, sticky=W)
+        # the keypad passphrase
+        self._lkeypad.grid(row=2, column=0, columnspan=3, sticky=W)
+        # the jumper wires status
+        self._lwires.grid(row=3, column=0, columnspan=3, sticky=W)
+        # the pushbutton status
+        self._lbutton.grid(row=4, column=0, columnspan=3, sticky=W)
+        # the toggle switches status
+        self._ltoggles.grid(row=5, column=0, columnspan=2, sticky=W)
+        # the strikes left
+        self._lstrikes.grid(row=5, column=2, sticky=W)
+        if (SHOW_BUTTONS):
+            # the pause button (pauses the timer)
+            self._bpause.grid(row=6, column=0, pady=40)
+            # the quit button
+            self._bquit.grid(row=6, column=2, pady=40)
 
     # lets us pause/unpause the timer (7-segment display)
     def setTimer(self, timer):
@@ -166,7 +185,7 @@ class Timer(PhaseThread):
     # runs the thread
     def run(self):
         self._running = True
-        mixer.init()
+        #mixer.init()
         while (self._running):
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
@@ -175,7 +194,7 @@ class Timer(PhaseThread):
                 # wait 1s (default) and continue
                 sleep(self._interval)
                 # the timer has expired -> phase failed (explode)
-                if (self._value == 0):
+                if (self._value <= 0):
                     self._running = False
                 self._value -= 1
             else:
