@@ -13,8 +13,8 @@ from threading import Thread
 from time import sleep
 import os
 import sys
-import tkinter as tk
-from pygame import mixer
+#import tkinter as tk
+#from pygame import mixer
 #########
 # classes
 #########

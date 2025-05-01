@@ -1,9 +1,7 @@
 """
-Reverses what the combination is but doesn't show what you put it shows the opposite
-
+Module that reverses the combination: the displayed values for toggles and wires are inverted relative to actual inputs.
 """
 from modules.aModule import aModule
-from time import sleep
 
 class module4(aModule):
     def __init__(self):
@@ -12,37 +10,36 @@ class module4(aModule):
         self.solve_progress = 0
 
     def solve(self) -> bool:
-        return self.solve_progress==4
+        return self.solve_progress == 4
 
-    def nfuncwires(self,wires):
-        wires._running = True
-        while wires._running:
-            # Read the state of each pin (HIGH or LOW) and build a binary string
-            wires._value = ""
-            for pin in wires._component:
-                if pin.value:  # True means HIGH
-                    wires._value += "0"
-                else:
-                    wires._value += "1"
-                # Check if it matches the target
-            if wires._value == wires._target:
-                wires._defused = True
-                wires._running = False  # stop the loop if defused
-            sleep(0.1)  # delay to avoid constant polling
+    # invert function changes the 0's and 1's for me
+    def invert(self, bits: str) -> str:
+        return ''.join('1' if b == '0' else '0' for b in bits)
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        if wires._value == "01101" and not wires._defused:
+        # Set text alignment to right while this module is active
+        screen._lscroll["anchor"] = "e"  # Right-aligned
+        # Invert expected target for wires
+        expected_wires = self.invert(wires._target)
+        if wires._value == expected_wires and not wires._defused:
             self.solve_progress += 1
             wires._defused = True
 
-        if switches._value == "1010" and not switches._defused:
+        # Invert expected target for switches
+        expected_switches = self.invert(switches._target)
+        if switches._value == expected_switches and not switches._defused:
             self.solve_progress += 1
             switches._defused = True
 
+        # Button logic unchanged
         if button._pressed and not button._defused:
             self.solve_progress += 1
             button._defused = True
 
-        if keypad._value == "1234" and not keypad._defused:
+        # Keypad logic unchanged
+        if keypad._value == keypad._target and not keypad._defused:
             self.solve_progress += 1
             keypad._defused = True
+
+        if self.solve():
+            screen._lscroll["anchor"] = "w"
