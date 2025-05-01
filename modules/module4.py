@@ -74,19 +74,19 @@ class Lcd(Frame):
     def setup(self):
         # the timer
         self._ltimer = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Time left: ")
-        self._ltimer.grid(row=1, column=0, columnspan=3, sticky=E)
+        self._ltimer.grid(row=1, column=3, columnspan=3, sticky=E)
         # the keypad passphrase
         self._lkeypad = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Keypad phase: ")
-        self._lkeypad.grid(row=2, column=0, columnspan=3, sticky=E)
+        self._lkeypad.grid(row=2, column=3, columnspan=3, sticky=E)
         # the jumper wires status
         self._lwires = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Wires phase: ")
-        self._lwires.grid(row=3, column=0, columnspan=3, sticky=E)
+        self._lwires.grid(row=3, column=3, columnspan=3, sticky=E)
         # the pushbutton status
         self._lbutton = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Button phase: ")
-        self._lbutton.grid(row=4, column=0, columnspan=3, sticky=E)
+        self._lbutton.grid(row=4, column=3, columnspan=3, sticky=E)
         # the toggle switches status
         self._ltoggles = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Toggles phase: ")
-        self._ltoggles.grid(row=5, column=0, columnspan=2, sticky=E)
+        self._ltoggles.grid(row=5, column=2, columnspan=2, sticky=E)
         # the strikes left
         self._lstrikes = Label(self, bg="black", fg="#00ff00", font=("Courier New", 18), text="Strikes left: ")
-        self._lstrikes.grid(row=5, column=2, sticky=E)
+        self._lstrikes.grid(row=5, column=3, sticky=E)
