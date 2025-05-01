@@ -12,6 +12,7 @@ class TriviaQuestion:
 	def __init__(self, question, answers, correct_answer):
 		self.question = question
 		self.answers = answers
+		shuffle(self.answers) # thanks, ChatGPT
 		self.correct_answer = correct_answer
 
 TRIVIA_QUESTIONS = [
@@ -111,28 +112,33 @@ class module2(aModule):
 		if not self.booted:
 			self.booted = True
 			screen.hide_all()
-			
+
 		current_question = self.get_current_question()
 
 		if current_question != self.last_question:
-			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 12),
 									 text=f"({self.points}) {current_question.question}")
+			self.title_label.grid_forget()
 			self.title_label.grid(row=2, column=1, pady=40)
 
 			self.q1 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 									 text=f"1: {current_question.answers[0]}")
+			self.q1.grid_forget()
 			self.q1.grid(row=3, column=1, pady=40)
 
 			self.q2 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"2: {current_question.answers[1]}")
+			self.q2.grid_forget()
 			self.q2.grid(row=3, column=2, pady=40)
 
 			self.q3 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"3: {current_question.answers[2]}")
+			self.q3.grid_forget()
 			self.q3.grid(row=4, column=1, pady=40)
 
 			self.q4 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
 							text=f"4: {current_question.answers[3]}")
+			self.q4.grid_forget()
 			self.q4.grid(row=4, column=2, pady=40)
 
 			self.last_question = current_question
@@ -141,10 +147,10 @@ class module2(aModule):
 
 		if keypad._value != "":
 			self.stage += 1
-			answer = keypad._value
+			answer = int(keypad._value) - 1
 			keypad._value = ""
 
-			if answer == current_question.answers.index(current_question.correct_answer):
+			if current_question.answers[answer - 1] == current_question.correct_answer:
 				self.points += 1
 
 #test_mod = module2()

@@ -98,8 +98,10 @@ def check_phases():
     print(queue[current_module].solve())
 
     if queue[current_module].solve():
+        print("MODULE SOLVED!")
         if current_module == (len(queue) - 1): # final module
             pass # YOU WIN!!!
+            print("YOU WIN!")
 
         else:
             current_module += 1
