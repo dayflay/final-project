@@ -29,6 +29,7 @@ class module3(aModule):
 
     def solve(self):
         if self.time_pressed >= 20 and (self.toggles._value == self.toggles_target):
+            self.title_label.grid_forget()
             return True
         return False
 
@@ -73,8 +74,8 @@ class module3(aModule):
                                      text=f"{self.toggles_target}")
             self.target_hint.grid(row=5, column=1, pady=10)
 
-            self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+        self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
                                    text=f"{self.time_pressed}")
-            self.time_held.grid(row=6, column=1, pady=10)
+        self.time_held.grid(row=6, column=1, pady=10)
 
 
