@@ -12,6 +12,7 @@ class TriviaQuestion:
 	def __init__(self, question, answers, correct_answer):
 		self.question = question
 		self.answers = answers
+		shuffle(self.answers) # thanks, ChatGPT
 		self.correct_answer = correct_answer
 
 TRIVIA_QUESTIONS = [
@@ -108,19 +109,18 @@ class module2(aModule):
 
 
 	def update(self, switches, button, wires, keypad, timer, screen):
+		current_question = self.get_current_question()
+
 		if not self.booted:
 			self.booted = True
 			screen.hide_all()
-			
-		current_question = self.get_current_question()
 
-		if current_question != self.last_question:
 			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 12),
 									 text=f"({self.points}) {current_question.question}")
 			self.title_label.grid(row=2, column=1, pady=40)
 
 			self.q1 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
-									 text=f"1: {current_question.answers[0]}")
+							text=f"1: {current_question.answers[0]}")
 			self.q1.grid(row=3, column=1, pady=40)
 
 			self.q2 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
@@ -135,6 +135,7 @@ class module2(aModule):
 							text=f"4: {current_question.answers[3]}")
 			self.q4.grid(row=4, column=2, pady=40)
 
+		if current_question != self.last_question:
 			self.last_question = current_question
 
 		self.timing += 1
