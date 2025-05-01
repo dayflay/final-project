@@ -18,8 +18,6 @@ class module4(aModule):
         return ''.join('1' if b == '0' else '0' for b in bits)
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        screen._ltimer["stickey"] = "E"
-
         # Invert expected target for wires
         expected_wires = self.invert(wires._target)
         if wires._value == expected_wires and not wires._defused:
