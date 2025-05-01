@@ -18,9 +18,6 @@ class module4(aModule):
         return ''.join('1' if b == '0' else '0' for b in bits)
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        # Set text alignment to right while this module is active
-        screen._lscroll["anchor"] = "e"
-
         # Invert expected target for wires
         expected_wires = self.invert(wires._target)
         if wires._value == expected_wires and not wires._defused:
@@ -43,5 +40,4 @@ class module4(aModule):
             self.solve_progress += 1
             keypad._defused = True
 
-        if self.solve():
-            screen._lscroll["anchor"] = "w"
+        #if self.solve():
