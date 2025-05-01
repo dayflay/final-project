@@ -14,6 +14,7 @@ class module3(aModule):
         self.start_time = None
         self.toggles = None
         self.ticks = 0
+        self.booted = False
 
         # Generate a random target
         self.toggles_target = self.random_target()
@@ -30,11 +31,38 @@ class module3(aModule):
             return True
         return False
 
-    def update(self, switches, button, wires, keypad, timer, gui):
+    def update(self, switches, button, wires, keypad, timer, gui, screen):
         if self.start_time is None:
             self.start_time = timer._value
 
+        if not self.booted:
+            self.booted = True
+            screen.hide_all()
+
         self.toggles = switches
+
+
+        self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+                                 text="land mine")
+        self.title_label.grid(row=2, column=1, pady=35)
+
+        self.description_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
+                                       text="hold the button and dont let go!")
+        self.description_label.grid(row=3, column=1, pady=35)
+
+        self.toggles_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
+                                   text="solve the toggles without blowing up the landmine")
+        self.toggles_label.grid(row=4, column=1, pady=35)
+
+        self.target_hint_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+                                       text=f"{self.toggles_target}")
+        self.target_hint_label.grid(row=5, column=1, pady=35)
+
+        self.button_timer_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+                                        text=f"{self.time_pressed}")
+        self.button_timer_label.grid(row=6, column=1, pady=35)
+
+
 
         if button._pressed:
             self.time_pressed += 10
@@ -45,7 +73,6 @@ class module3(aModule):
                 timer._value -= 2
         else:
             self.ticks += 0.1
-
 
         if self.solve():
             self._defused = True
