@@ -43,7 +43,7 @@ class module3(aModule):
         if self.start_time is None:
             self.start_time = timer._value
 
-        if (self.time_pressed >= 40) and (self.toggles._value == self.toggles_target) == True:
+        if self.solve:
             screen.hide_all()
             screen.replace_all()
 
@@ -63,7 +63,7 @@ class module3(aModule):
             self._defused = True
 
 
-        if not self.booted and self.toggles._value != self.toggles_target:
+        if not self.booted and not self.solve:
             self.booted = True
             screen.hide_all()
 
@@ -80,11 +80,11 @@ class module3(aModule):
             self.game_desc.grid(row=4, column=1, pady=10)
 
             self.target_hint = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
-                                     text=f"{self.toggles_target}")
+                                     text=f"Target code: {self.letter_hint}")
             self.target_hint.grid(row=5, column=1, pady=10)
 
         self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
-                                   text=f"Target code: {self.letter_hint}")
+                                   text=f"time held: {self.time_pressed}")
         self.time_held.grid(row=6, column=1, pady=10)
 
 
