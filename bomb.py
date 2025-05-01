@@ -36,6 +36,8 @@ def bootup(n=0):
         # scroll the next character after a slight delay (\x00 is a longer delay)
         gui.after(25 if boot_text[n] != "\x00" else 750, bootup, n + 1)
 
+    gui._lscroll.grid_forget()
+
 # sets up the phase threads
 def setup_phases():
     global timer, keypad, wires, button, toggles, queue, current_module

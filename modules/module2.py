@@ -95,6 +95,7 @@ class module2(aModule):
 		self.timing = 0
 		self.points = 0
 		self.booted = False
+		self.last_question = None
 
 	def get_current_question(self):
 		return self.questions[self.stage]
@@ -113,33 +114,37 @@ class module2(aModule):
 			
 		current_question = self.get_current_question()
 
-		self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
-								 text=f"{current_question.question}")
-		self.title_label.grid(row=2, column=1, pady=40)
+		if current_question != self.last_question:
+			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+									 text=f"({self.points}) {current_question.question}")
+			self.title_label.grid(row=2, column=1, pady=40)
 
-		self.q1 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
-								 text=f"1: {current_question.answers[0]}")
-		self.q1.grid(row=3, column=1, pady=40)
-		
-		self.q2 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
-						text=f"2: {current_question.answers[1]}")
-		self.q2.grid(row=3, column=2, pady=40)
-		
-		self.q3 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
-						text=f"3: {current_question.answers[2]}")
-		self.q3.grid(row=4, column=1, pady=40)
-		
-		self.q4 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
-						text=f"4: {current_question.answers[3]}")
-		self.q4.grid(row=4, column=2, pady=40)
+			self.q1 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+									 text=f"1: {current_question.answers[0]}")
+			self.q1.grid(row=3, column=1, pady=40)
+
+			self.q2 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+							text=f"2: {current_question.answers[1]}")
+			self.q2.grid(row=3, column=2, pady=40)
+
+			self.q3 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+							text=f"3: {current_question.answers[2]}")
+			self.q3.grid(row=4, column=1, pady=40)
+
+			self.q4 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+							text=f"4: {current_question.answers[3]}")
+			self.q4.grid(row=4, column=2, pady=40)
+
+			self.last_question = current_question
 
 		self.timing += 1
 
 		if keypad._value != "":
 			self.stage += 1
+			answer = keypad._value
 			keypad._value = ""
 
-			if keypad._value == current_question.questions.index(current_question.correct_answer):
+			if answer == current_question.answers.index(current_question.correct_answer):
 				self.points += 1
 
 #test_mod = module2()

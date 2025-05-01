@@ -165,7 +165,7 @@ class Timer(PhaseThread):
     # runs the thread
     def run(self):
         self._running = True
-        mixer.init()
+        #mixer.init()
         while (self._running):
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
