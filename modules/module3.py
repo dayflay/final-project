@@ -89,5 +89,5 @@ class module3(aModule):
             self.time_held.destroy()
             self.game_desc.destroy()
             self.description.destroy()
-            self.title_Label.destroy()
+            self.title_Label.grid_forget()
             self.target_hint.destroy()
