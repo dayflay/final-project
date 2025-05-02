@@ -18,6 +18,13 @@ class module4(aModule):
         bits = str(bits)
         return ''.join('1' if b == '0' else '0' for b in bits)
 
+    def Ktarget(self):
+        combos =["1234", "9876"]
+    def Wtarget(self):
+        combos = ["11100", "10010", "10110", "10001", "00100", "11010", "10101", "11111", "01010"]
+    def Starget(self):
+        combos=["1100","0010","0110","1000","0000","1010","0101"]
+
     def update(self, switches, button, wires, keypad, timer, screen):
         if not self.booted and not self.solve():
             screen.hide_all()
