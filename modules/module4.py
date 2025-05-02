@@ -24,7 +24,7 @@ class module4(aModule):
         screen._lwires.grid(row=3, column=3, columnspan=1, sticky="E")
         screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
         screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
-        screen._lstrikes.grid(row=5, column=1, sticky=E)
+        screen._lstrikes.grid(row=5, column=1, sticky="E")
 
         # Invert expected target for wires
         expected_wires = self.invert(wires._target)
