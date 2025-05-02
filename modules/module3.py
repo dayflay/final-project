@@ -16,7 +16,6 @@ class module3(aModule):
         self.toggles = None
         self.ticks = 0
         self.booted = False
-        self.solve = False
 
         # Generate a random target
         self.toggles_target = self.random_target()
@@ -57,7 +56,7 @@ class module3(aModule):
             self.ticks += 0.1
 
 
-        if not self.booted and not self.solve:
+        if not self.booted and not self.solve():
             self.booted = True
             screen.hide_all()
 
