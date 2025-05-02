@@ -86,7 +86,7 @@ class module3(aModule):
             self._defused = True
             screen.hide_all()
             screen.replace_all()
-            self.time_held.destroy()
+            self.time_held.grid_forget()
             self.game_desc.destroy()
             self.description.destroy()
             self.title_Label.grid_forget()
