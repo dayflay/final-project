@@ -8,6 +8,7 @@ class module4(aModule):
         super().__init__()
         self.name = "Shenanigans"
         self.solve_progress = 0
+        self.booted= False
 
     def solve(self) -> bool:
         return self.solve_progress == 4
