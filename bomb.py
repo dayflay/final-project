@@ -95,7 +95,7 @@ def check_phases():
         return
 
     queue[current_module].update(toggles, button, wires, keypad, timer, gui)
-    print(queue[current_module].solve())
+    print(str(queue[current_module].solve()))
 
     if queue[current_module].solve():
         print("MODULE SOLVED!")
