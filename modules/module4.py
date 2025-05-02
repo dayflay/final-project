@@ -18,13 +18,16 @@ class module4(aModule):
         return ''.join('1' if b == '0' else '0' for b in bits)
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        screen.hide_all()
-        screen._ltimer.grid(row=1, column=3, columnspan=1, sticky="E")
-        screen._lkeypad.grid(row=2, column=3, columnspan=1, sticky="E")
-        screen._lwires.grid(row=3, column=3, columnspan=1, sticky="E")
-        screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
-        screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
-        screen._lstrikes.grid(row=5, column=1, sticky="E")
+        if not self.booted and not self.solve():
+            screen.hide_all()
+            screen._ltimer.grid(row=1, column=3, columnspan=1, sticky="E")
+            screen._lkeypad.grid(row=2, column=3, columnspan=1, sticky="E")
+            screen._lwires.grid(row=3, column=3, columnspan=1, sticky="E")
+            screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
+            screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
+            screen._lstrikes.grid(row=5, column=1, sticky="E")
+
+
 
         # Invert expected target for wires
         expected_wires = self.invert(wires._target)
