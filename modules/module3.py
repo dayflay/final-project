@@ -21,8 +21,8 @@ class module3(aModule):
         self.toggles_target = self.random_target()
 
     def random_target(self):
-        one_letters = ['A', 'C', 'E', 'G', 'I', 'K', 'M', 'O']
-        zero_letters = ['B', 'D', 'F', 'H', 'J', 'L', 'N', 'P']
+        one_letters = ['A', 'C', 'F', 'G', 'I', 'L', 'M', 'O']
+        zero_letters = ['B', 'D', 'E', 'H', 'J', 'K', 'N', 'P']
 
         # Ensure the target is not all 0s or all 1s
         while True:
@@ -43,10 +43,6 @@ class module3(aModule):
         if self.start_time is None:
             self.start_time = timer._value
 
-        if self.solve:
-            screen.hide_all()
-            screen.replace_all()
-
         self.toggles = switches
 
         if button._pressed:
@@ -59,8 +55,6 @@ class module3(aModule):
         else:
             self.ticks += 0.1
 
-        if self.solve():
-            self._defused = True
 
 
         if not self.booted and not self.solve:
@@ -88,3 +82,8 @@ class module3(aModule):
         self.time_held.grid(row=6, column=1, pady=10)
 
 
+
+        if self.solve():
+            self._defused = True
+            screen.hide_all()
+            screen.replace_all()
