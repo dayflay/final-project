@@ -83,7 +83,7 @@ class module3(aModule):
 
 
 
-        if self.solve:
+        if self.solve():
             self._defused = True
             screen.hide_all()
             screen.replace_all()
