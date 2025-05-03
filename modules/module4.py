@@ -42,8 +42,8 @@ class module4(aModule):
             screen._lwires.grid(row=3, column=3, columnspan=1, sticky="E")
             screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
             screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
-            expected_wires = self.Wtarget()
-            expected_switches = self.Starget()
+            global expected_wires = self.Wtarget()
+            global expected_switches = self.Starget()
             self.booted = True
 
 
