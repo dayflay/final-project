@@ -42,17 +42,19 @@ class module4(aModule):
             screen._lwires.grid(row=3, column=3, columnspan=1, sticky="E")
             screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
             screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
-            self.booted= True
+            expected_wires = self.Wtarget()
+            expected_switches = self.Starget()
+            self.booted = True
 
 
         # Invert expected target for wires
-        expected_wires = self.Wtarget()
+
         if wires._value == expected_wires and not wires._defused:
             self.solve_progress += 1
             wires._defused = True
 
         # Invert expected target for switches
-        expected_switches = self.Starget()
+
         if switches._value == expected_switches and not switches._defused:
             self.solve_progress += 1
             switches._defused = True
