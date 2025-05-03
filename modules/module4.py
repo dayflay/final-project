@@ -46,6 +46,8 @@ class module4(aModule):
             screen._lwires.grid(row=3, column=3, columnspan=1, sticky="E")
             screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
             screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
+            self._solve = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),text="solve progress")
+            screen._solve.grid(row=1, column=1, columnspan=1, sticky="W")
             global expected_wires
             global expected_switches
             expected_wires = self.Wtarget()
@@ -78,6 +80,9 @@ class module4(aModule):
         screen._ltoggles.config(text=f"Toggles:{self.invert(switches._value)} (target: {expected_switches})")
         screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {keypad._target})")
         screen._lbutton.config(text=f"Button:{'Pressed' if button._pressed else 'Not pressed'}")
+        screen._solve.config(text=f"Solve Progress: {self.solve_progress}")
+
 
         if self.solve():
             self.defused = True
+            screen.hide_all()
