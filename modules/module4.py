@@ -30,7 +30,7 @@ class module4(aModule):
     def Starget(self):
         combos=["1100","0010","0110","1000","0000","1010","0101"]
         self.switches_target = random.choice(combos)
-
+#
 
     def update(self, switches, button, wires, keypad, timer, screen):
         if not self.booted and not self.solve():
