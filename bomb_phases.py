@@ -187,9 +187,9 @@ class Timer(PhaseThread):
         pygame.mixer.init()
         sound = pygame.mixer.Sound("ticking for 1s-output.mp3")
         while (self._running):
-            sound.play()
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
+                sound.play()
                 self._update()
                 self._component.print(str(self))
                 # wait 1s (default) and continue
