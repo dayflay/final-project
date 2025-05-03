@@ -15,6 +15,8 @@ class module4(aModule):
     def solve(self) -> bool:
         if self.solve_progress == 4:
             return True
+        else:
+            return False
 
     # invert function changes the 0's and 1's for me
     def invert(self, bits: str) -> str:
