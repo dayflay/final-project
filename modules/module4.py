@@ -3,6 +3,7 @@ Module that reverses the combination: the displayed values for toggles and wires
 """
 from modules.aModule import aModule
 import random
+from tkinter import Label
 
 class module4(aModule):
     def __init__(self):
@@ -50,8 +51,10 @@ class module4(aModule):
             screen._solve.grid(row=1, column=1, columnspan=1, sticky="W")
             global expected_wires
             global expected_switches
+            global expected_keypad
             expected_wires = self.Wtarget()
             expected_switches = self.Starget()
+            expected_keypad = self.Ktarget()
             self.booted = True
 
 
@@ -71,7 +74,7 @@ class module4(aModule):
             button._defused = True
 
         # Keypad logic unchanged
-        if keypad._value == self.Ktarget() and not keypad._defused:
+        if keypad._value == expected_keypad and not keypad._defused:
             self.solve_progress += 1
             keypad._defused = True
 
