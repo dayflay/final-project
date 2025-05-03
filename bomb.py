@@ -60,6 +60,9 @@ def setup_phases():
     # setup the toggle switches thread
     toggles = Toggles(component_toggles, toggles_target)
 
+    difficulty_selection_window = Tk()
+
+
     # create a queue for the modules to work upon
     queue = []
     possible_mods = ALL_MODULES
@@ -105,6 +108,7 @@ def check_phases():
         if current_module == (len(queue) - 1): # final module
             pass # YOU WIN!!!
             win_screen()
+            turn_off()
 
         else:
             current_module += 1
