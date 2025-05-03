@@ -101,6 +101,7 @@ def check_phases():
         # don't check any more phases
         return
 
+    print(queue[current_module].name)
     queue[current_module].update(toggles, button, wires, keypad, timer, gui)
 
     if queue[current_module].solve():
