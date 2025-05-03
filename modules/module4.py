@@ -85,7 +85,7 @@ class module4(aModule):
         screen._lbutton.config(text=f"Button:{'Pressed' if button._pressed else 'Not pressed'}")
         self._solve.config(text=f"Solve Progress: {self.solve_progress}")
 
-
+        #once my module is completed run these
         if self.solve():
             self.defused = True
             screen.hide_all()
