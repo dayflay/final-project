@@ -92,7 +92,7 @@ class module3(aModule):
         if self.solve():
             screen.hide_all()
             screen.replace_all()
-            self.time_held.grid_remove()
+            self.time_held.destroy()
             self.game_desc.grid_remove()
             self.description.grid_remove()
             self.title.grid_remove()
