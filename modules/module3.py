@@ -16,6 +16,7 @@ class module3(aModule):
         self.toggles = None
         self.ticks = 0
         self.booted = False
+        self.time_held = None
 
         # Generate a random target
         self.toggles_target = self.random_target()
@@ -82,17 +83,21 @@ class module3(aModule):
                                      text=f"Target code: {self.letter_hint}")
             self.target_hint.grid(row=5, column=1, pady=10)
 
-        #these values are outside the if statement as they need to be refreshed to constantly update the time.
-        self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+        if self.time_held is None:
+            #these values are outside the if statement as they need to be refreshed to constantly update the time.
+            self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
                                    text=f"time held: {self.time_pressed}")
-        self.time_held.grid(row=6, column=1, pady=10)
+            self.time_held.grid(row=6, column=1, pady=10)
+        else:
+            self.time_held.config(text=f"time held: {self.time_pressed}")
 
 
         #resets the gui to the regular bomb gui once the module is solved
         if self.solve():
             screen.hide_all()
             screen.replace_all()
-            self.time_held.destroy()
+            if self.time_held:
+                self.time_held.grid_remove()
             self.game_desc.grid_remove()
             self.description.grid_remove()
             self.title.grid_remove()
