@@ -63,7 +63,7 @@ TRIVIA_QUESTIONS = [
 	TriviaQuestion("Which bird is known for mimicking sounds?", ["Parrot", "Sparrow", "Penguin", "Eagle"], "Parrot"),
 	TriviaQuestion("Who wrote '1984'?", ["George Orwell", "Aldous Huxley", "Ray Bradbury", "J.K. Rowling"],
 				   "George Orwell"),
-	TriviaQuestion("Which famous scientist developed the theory of relativity?",
+	TriviaQuestion("Which scientist developed the theory of relativity?",
 				   ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Nikola Tesla"], "Albert Einstein"),
 	TriviaQuestion("How many bones are in the adult human body?", ["206", "210", "200", "201"], "206"),
 	TriviaQuestion("What is the largest planet in our solar system?", ["Jupiter", "Saturn", "Earth", "Neptune"],
