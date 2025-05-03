@@ -81,10 +81,10 @@ class module3(aModule):
             self.target_hint = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
                                      text=f"Target code: {self.letter_hint}")
             self.target_hint.grid(row=5, column=1, pady=10)
-        #these values are outside the if statement as they need to be refreshed to constantly update the time.
-        self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
+            #these values are outside the if statement as they need to be refreshed to constantly update the time.
+            self.time_held = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 14),
                                    text=f"time held: {self.time_pressed}")
-        self.time_held.grid(row=6, column=1, pady=10)
+            self.time_held.grid(row=6, column=1, pady=10)
 
 
         #resets the gui to the regular bomb gui once the module is solved
@@ -92,7 +92,7 @@ class module3(aModule):
             self._defused = True
             screen.hide_all()
             screen.replace_all()
-            self.time_held.destroy()
+            self.time_held.grid_remove()
             self.game_desc.destroy()
             self.description.destroy()
             self.title.destroy()
