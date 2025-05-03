@@ -48,7 +48,7 @@ class module4(aModule):
             screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
             screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
             self._solve = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),text="solve progress")
-            screen._solve.grid(row=1, column=1, columnspan=1, sticky="W")
+            self._solve.grid(row=1, column=1, columnspan=1, sticky="W")
             global expected_wires
             global expected_switches
             global expected_keypad
