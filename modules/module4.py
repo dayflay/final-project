@@ -89,3 +89,4 @@ class module4(aModule):
         if self.solve():
             self.defused = True
             screen.hide_all()
+            self._solve.grid_forget()
