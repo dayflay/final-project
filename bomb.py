@@ -10,6 +10,10 @@ from bomb_configs import *
 from bomb_phases import *
 # randomization library
 from random import shuffle
+
+from win import win_screen
+
+
 ###########
 # functions
 ##########
@@ -100,7 +104,7 @@ def check_phases():
         print("MODULE SOLVED!")
         if current_module == (len(queue) - 1): # final module
             pass # YOU WIN!!!
-            print("YOU WIN!")
+            win_screen()
 
         else:
             current_module += 1
