@@ -92,7 +92,9 @@ class module3(aModule):
             self._defused = True
             screen.hide_all()
             screen.replace_all()
-            self.time_held.destroy()
+            if self.time_held:
+                self.time_held.destroy()
+                self.time_held = None  # Prevent future calls or redraws
             self.game_desc.destroy()
             self.description.destroy()
             self.title_Label.grid_forget()
