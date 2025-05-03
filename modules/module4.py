@@ -83,7 +83,7 @@ class module4(aModule):
         screen._ltoggles.config(text=f"Toggles:{self.invert(switches._value)} (target: {expected_switches})")
         screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {keypad._target})")
         screen._lbutton.config(text=f"Button:{'Pressed' if button._pressed else 'Not pressed'}")
-        screen._solve.config(text=f"Solve Progress: {self.solve_progress}")
+        self.screen._solve.config(text=f"Solve Progress: {self.solve_progress}")
 
 
         if self.solve():
