@@ -81,7 +81,7 @@ class module4(aModule):
         #shows the inverted value for wires and toggles while displaying all values constantly
         screen._lwires.config(text=f"Wires:{self.invert(wires._value)} (target: {expected_wires})")
         screen._ltoggles.config(text=f"Toggles:{self.invert(switches._value)} (target: {expected_switches})")
-        screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {keypad._target})")
+        screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_keypad})")
         screen._lbutton.config(text=f"Button:{'Pressed' if button._pressed else 'Not pressed'}")
         self._solve.config(text=f"Solve Progress: {self.solve_progress}")
 
