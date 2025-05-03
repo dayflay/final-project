@@ -88,7 +88,7 @@ class module4(aModule):
         #once my module is completed run these
         if self.solve():
             self.defused = True
-            screen.hide_all()
             self._solve.grid_forget()
             screen._ltimer.grid_forget()
+            screen.hide_all()
             screen.replace_all()
