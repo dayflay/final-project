@@ -13,8 +13,7 @@ from threading import Thread
 from time import sleep
 import os
 import sys
-#import tkinter as tk
-#import pygame
+import pygame
 #########
 # classes
 #########
@@ -185,10 +184,10 @@ class Timer(PhaseThread):
     # runs the thread
     def run(self):
         self._running = True
-        #pygame.mixer.init()
-        #pygame.mixer.music.load()
+        pygame.mixer.init()
+        sound = pygame.mixer.Sound("ticking for 1s-output.mp3")
         while (self._running):
-            #pygame.mixer.music.play()
+            sound.play()
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
                 self._update()
