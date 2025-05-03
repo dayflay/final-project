@@ -18,11 +18,12 @@ class module4(aModule):
         else:
             return False
 
-    # invert function changes the 0's and 1's for me
+    #invert function changes the 0's and 1's for me
     def invert(self, bits: str) -> str:
         bits = str(bits)
         return ''.join('1' if b == '0' else '0' for b in bits)
 
+    #holds what I want to be the targets
     def Ktarget(self):
         combos =["1234", "9876"]
         self.keypad_target = random.choice(combos)
@@ -37,6 +38,7 @@ class module4(aModule):
         return self.switches_target
 
     def update(self, switches, button, wires, keypad, timer, screen):
+        #sets up the screen and makes it so it doesn't keep refreshing with the screen refresh rate
         if not self.booted and not self.solve():
             screen.hide_all()
             screen._ltimer.grid(row=1, column=3, columnspan=1, sticky="E")
@@ -52,13 +54,11 @@ class module4(aModule):
 
 
         # Invert expected target for wires
-
         if wires._value == expected_wires and not wires._defused:
             self.solve_progress += 1
             wires._defused = True
 
         # Invert expected target for switches
-
         if switches._value == expected_switches and not switches._defused:
             self.solve_progress += 1
             switches._defused = True
