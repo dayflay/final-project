@@ -62,7 +62,7 @@ class module4(aModule):
             button._defused = True
 
         # Keypad logic unchanged
-        if keypad._value == keypad.keypad_target and not keypad._defused:
+        if keypad._value == keypad._target and not keypad._defused:
             self.solve_progress += 1
             keypad._defused = True
 
