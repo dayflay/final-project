@@ -16,6 +16,9 @@ class module1(aModule):
 		return False
 
 	def update(self, switches, button, wires, keypad, timer, screen):
+		if self.last_status == None:
+			screen.hide_all()
+
 		if button._pressed != self.last_status:
 			self.last_status = button._pressed
 			self.points += 1
