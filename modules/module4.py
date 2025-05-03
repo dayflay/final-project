@@ -68,6 +68,6 @@ class module4(aModule):
             keypad._defused = True
 
         screen._lwires.config(text=f"Wires:{self.invert(wires._value)}")
-        screen._ltoggles.config(text=f"Toggles:{self.invert(switches._value)}")
-        screen._lkeypad.config(text=f"Keypad:{keypad._value}")
+        screen._ltoggles.config(text=f"Toggles:{self.invert(switches._value)} (target: {expected_switches})")
+        screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {keypad._target})")
         screen._lbutton.config(text=f"Button:{'Pressed' if button._pressed else 'Not pressed'}")
