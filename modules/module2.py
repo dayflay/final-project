@@ -123,7 +123,7 @@ class module2(aModule):
 		current_question = self.get_current_question()
 
 		if current_question != self.last_question:
-			self.title_label.grid_remove()
+			#self.title_label.grid_remove()
 			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 12),
 									 text=f"({self.points}) {current_question.question}")
 			self.title_label.grid_forget()
