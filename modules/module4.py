@@ -40,7 +40,6 @@ class module4(aModule):
             screen._lwires.grid(row=3, column=3, columnspan=1, sticky="E")
             screen._lbutton.grid(row=4, column=3, columnspan=1, sticky="E")
             screen._ltoggles.grid(row=5, column=3, columnspan=1, sticky="E")
-            screen._lstrikes.grid(row=5, column=1, sticky="E")
             self.booted= True
 
 
@@ -66,7 +65,7 @@ class module4(aModule):
             self.solve_progress += 1
             keypad._defused = True
 
-        screen._lwires.config(text=f"Wires: {wires._value} (target: {expected_wires})")
-        screen._ltoggles.config(text=f"Toggles: {switches._value} (target: {expected_switches})")
-        screen._lkeypad.config(text=f"Keypad: {keypad._value} (target: {keypad._target})")
+        screen._lwires.config(text=f"Wires: {wires._value}")
+        screen._ltoggles.config(text=f"Toggles: {switches._value}")
+        screen._lkeypad.config(text=f"Keypad: {keypad._value}")
         screen._lbutton.config(text=f"Button: {'Pressed' if button._pressed else 'Not pressed'}")
