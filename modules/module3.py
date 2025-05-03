@@ -66,7 +66,7 @@ class module3(aModule):
             screen.hide_all()
             #these values are in an if statement because they don't need to be refreshed.
             # constant refreshing causes the screen to flicker
-            self.title = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+            self.title = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 20),
                                      text="land mine")
             self.title.grid(row=2, column=1, pady=10)
 
