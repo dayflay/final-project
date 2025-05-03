@@ -107,11 +107,11 @@ class module2(aModule):
 
 	def solve(self) -> bool:
 		if self.points >= 10:
-			self.title_label.grid_forget()
-			self.q1.grid_forget()
-			self.q2.grid_forget()
-			self.q3.grid_forget()
-			self.q4.grid_forget()
+			self.title_label.destroy()
+			self.q1.destroy()
+			self.q2.destroy()
+			self.q3.destroy()
+			self.q4.destroy()
 			return True
 
 
