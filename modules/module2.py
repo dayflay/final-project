@@ -98,9 +98,6 @@ class module2(aModule):
 		self.booted = False
 		self.last_question = None
 
-		self.title_label, self.q1, self.q2, self.q3, self.q4 = Label(), Label(), Label(), Label(), Label()
-
-
 	def get_current_question(self):
 		return self.questions[self.stage]
 
@@ -118,12 +115,14 @@ class module2(aModule):
 	def update(self, switches, button, wires, keypad, timer, screen):
 		if not self.booted:
 			self.booted = True
+			self.title_label, self.q1, self.q2, self.q3, self.q4 = Label(screen), Label(screen), Label(screen), Label(screen), Label(screen)
+
 			screen.hide_all()
 
 		current_question = self.get_current_question()
 
 		if current_question != self.last_question:
-			#self.title_label.grid_remove()
+			self.title_label.destroy()
 			self.title_label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 12),
 									 text=f"({self.points}) {current_question.question}")
 			self.title_label.grid_forget()
