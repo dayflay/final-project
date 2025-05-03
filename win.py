@@ -57,5 +57,3 @@ def win_screen():
 
 	video_task.join()
 	tk_task.join()
-
-win_screen()
