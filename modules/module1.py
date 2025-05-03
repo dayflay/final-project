@@ -9,11 +9,13 @@ class module1(aModule):
 		super().__init__()
 		self.name = "The Dead Man's Hand"
 		self.points = 0
+		self.last_status = None
 
 	def solve(self) -> bool:
 		if self.points >= 10: return True
 		return False
 
 	def update(self, switches, button, wires, keypad, timer, screen):
-		if switches == "0101":
+		if button._pressed != self.last_status:
+			self.last_status = button._pressed
 			self.points += 1
