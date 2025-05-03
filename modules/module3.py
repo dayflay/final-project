@@ -66,9 +66,9 @@ class module3(aModule):
             screen.hide_all()
             #these values are in an if statement because they don't need to be refreshed.
             # constant refreshing causes the screen to flicker
-            self.title_Label = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
+            self.title = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 18),
                                      text="land mine")
-            self.title_Label.grid(row=2, column=1, pady=10)
+            self.title.grid(row=2, column=1, pady=10)
 
             self.description = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
                                      text="hold the button and dont let go!")
@@ -97,5 +97,5 @@ class module3(aModule):
                 self.time_held = None  # Prevent future calls or redraws
             self.game_desc.destroy()
             self.description.destroy()
-            self.title_Label.grid_forget()
+            self.title.destroy()
             self.target_hint.destroy()
