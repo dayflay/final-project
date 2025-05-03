@@ -46,13 +46,13 @@ class module4(aModule):
 
 
         # Invert expected target for wires
-        expected_wires = self.Wtarget(wires._target)
+        expected_wires = self.Wtarget()
         if wires._value == expected_wires and not wires._defused:
             self.solve_progress += 1
             wires._defused = True
 
         # Invert expected target for switches
-        expected_switches = self.Starget(switches._target)
+        expected_switches = self.Starget()
         if switches._value == expected_switches and not switches._defused:
             self.solve_progress += 1
             switches._defused = True
@@ -63,7 +63,7 @@ class module4(aModule):
             button._defused = True
 
         # Keypad logic unchanged
-        if keypad._value == self.Ktarget(keypad._target) and not keypad._defused:
+        if keypad._value == self.Ktarget() and not keypad._defused:
             self.solve_progress += 1
             keypad._defused = True
 
