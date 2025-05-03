@@ -24,13 +24,15 @@ class module4(aModule):
     def Ktarget(self):
         combos =["1234", "9876"]
         self.keypad_target = random.choice(combos)
+        return self.keypad_target
     def Wtarget(self):
         combos = ["11100", "10010", "10110", "10001", "00100", "11010", "10101", "11111", "01010"]
         self.wires_target = random.choice(combos)
+        return self.wires_target
     def Starget(self):
         combos=["1100","0010","0110","1000","0000","1010","0101"]
         self.switches_target = random.choice(combos)
-#
+        return self.switches_target
 
     def update(self, switches, button, wires, keypad, timer, screen):
         if not self.booted and not self.solve():
@@ -44,13 +46,13 @@ class module4(aModule):
 
 
         # Invert expected target for wires
-        expected_wires = self.invert(wires._target)
+        expected_wires = self.Wtarget(wires._target)
         if wires._value == expected_wires and not wires._defused:
             self.solve_progress += 1
             wires._defused = True
 
         # Invert expected target for switches
-        expected_switches = self.invert(switches._target)
+        expected_switches = self.Starget(switches._target)
         if switches._value == expected_switches and not switches._defused:
             self.solve_progress += 1
             switches._defused = True
@@ -61,7 +63,7 @@ class module4(aModule):
             button._defused = True
 
         # Keypad logic unchanged
-        if keypad._value == keypad._target and not keypad._defused:
+        if keypad._value == self.Ktarget(keypad._target) and not keypad._defused:
             self.solve_progress += 1
             keypad._defused = True
 
