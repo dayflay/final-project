@@ -45,13 +45,13 @@ class module4(aModule):
 
 
         # Invert expected target for wires
-        expected_wires = self.invert(wires.wires_target)
+        expected_wires = self.invert(wires._target)
         if wires._value == expected_wires and not wires._defused:
             self.solve_progress += 1
             wires._defused = True
 
         # Invert expected target for switches
-        expected_switches = self.invert(switches.switches_target)
+        expected_switches = self.invert(switches._target)
         if switches._value == expected_switches and not switches._defused:
             self.solve_progress += 1
             switches._defused = True
