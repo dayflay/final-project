@@ -26,7 +26,7 @@ class module4(aModule):
 
     #holds what I want to be the targets
     def Ktarget(self):
-        combos =["1234", "9876"]
+        combos =["1234", "9876","6489","0456"]
         self.keypad_target = random.choice(combos)
         return self.keypad_target
     def Wtarget(self):
@@ -56,7 +56,6 @@ class module4(aModule):
             expected_switches = self.Starget()
             expected_keypad = self.Ktarget()
             self.booted = True
-
 
         # Invert expected target for wires
         if wires._value == expected_wires and not wires._defused:
