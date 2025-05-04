@@ -191,7 +191,7 @@ class Timer(PhaseThread):
         while (self._running):
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
-                sound.play()
+                mixer.music.play()
                 self._update()
                 self._component.print(str(self))
                 # wait 1s (default) and continue
