@@ -30,11 +30,11 @@ class module4(aModule):
         self.keypad_target = random.choice(combos)
         return self.keypad_target
     def Wtarget(self):
-        combos = ["11100", "10010", "10110", "10001", "00100", "11010", "10101", "11111", "01010"]
+        combos = ["11100", "10010", "10110", "10001", "00100", "11010", "10101", "11011", "01010"]
         self.wires_target = random.choice(combos)
         return self.wires_target
     def Starget(self):
-        combos=["1100","0010","0110","1000","0000","1010","0101"]
+        combos=["1100","0010","0110","1000","0100","1010","0101","0001"]
         self.switches_target = random.choice(combos)
         return self.switches_target
 
