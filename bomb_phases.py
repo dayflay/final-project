@@ -185,7 +185,7 @@ class Timer(PhaseThread):
     def run(self):
         self._running = True
         pygame.mixer.init()
-        sound = pygame.mixer.Sound("ticking for 1s-output.mp3")
+        sound = pygame.mixer.Sound("./assets/ticking for 1s-output.mp3")
         sound.set_volume(10000.0)
         while (self._running):
             if (not self._paused):
