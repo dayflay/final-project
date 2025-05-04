@@ -79,10 +79,29 @@ class module4(aModule):
             keypad._defused = True
 
         #shows the inverted value for wires and toggles while displaying all values constantly
-        screen._lwires.config(text=f"Wires:{self.invert(wires._value)} (target: {expected_wires})")
-        screen._ltoggles.config(text=f"Toggles:{self.invert(switches._value)} (target: {expected_switches})")
-        screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_keypad})")
-        screen._lbutton.config(text=f"Button:{'Pressed' if button._pressed else 'Not pressed'}")
+        # tells you the wires is defused
+        if wires._defused != True:
+            screen._lwires.config(text=f"Wires:{self.invert(wires._value)} (target: {expected_wires})")
+        else:
+            screen._lwires.config(text="Wires: DEFUSED")
+
+        # tells you the switches are defused
+        if switches._defused != True:
+            screen._ltoggles.config(text=f"Toggles:{self.invert(switches._value)} (target: {expected_switches})")
+        else:
+            screen._ltoggles.config(text="Toggles: DEFUSED")
+
+        # tells you the keypad is defused
+        if keypad._defused != True:
+            screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_keypad})")
+        else:
+            screen._lkeypad.config(text="Keypad: DEFUSED")
+
+        #tells you the button is defused
+        if button._defused != True:
+            screen._lbutton.config(text=f"Button:{'Pressed' if button._pressed else 'Not pressed'}")
+        else:
+            screen._lbutton.config(text="Button: DEFUSED")
         self._solve.config(text=f"Solve Progress: {self.solve_progress}")
 
         #once my module is completed run these
