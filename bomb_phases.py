@@ -187,7 +187,7 @@ class Timer(PhaseThread):
         self._running = True
         mixer.init()
         mixer.music.load("./assets/ticking for 1s-output.mp3")
-        mixer.music.set_volume(10.0)
+        mixer.music.set_volume(50.0)
         while (self._running):
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
