@@ -14,6 +14,7 @@ from time import sleep
 import os
 import sys
 import pygame
+from pygame import mixer
 #########
 # classes
 #########
@@ -184,9 +185,9 @@ class Timer(PhaseThread):
     # runs the thread
     def run(self):
         self._running = True
-        pygame.mixer.init()
-        sound = pygame.mixer.load("./assets/ticking for 1s-output.mp3")
-        sound.set_volume(5000.0)
+        mixer.init()
+        mixer.music.load("./assets/ticking for 1s-output.mp3")
+        mixer.music.set_volume(10.0)
         while (self._running):
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
