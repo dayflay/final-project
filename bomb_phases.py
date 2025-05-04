@@ -187,7 +187,7 @@ class Timer(PhaseThread):
         self._running = True
         pygame.mixer.init()
         pygame.mixer.music.load("./assets/ticking for 1s-output.mp3")
-        pygame.mixer.music.set_volume(1.0)
+        pygame.mixer.music.set_volume(100.0)
         while (self._running):
             if (not self._paused):
                 # update the timer and display its value on the 7-segment display
