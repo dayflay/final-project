@@ -32,15 +32,18 @@ class module5(aModule):
             expected_k = self.K_target()
             self.booted =True
 
+        if keypad._defused != True:
+            screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_k})")
+        else:
+            screen._lkeypad.config(text="Keypad: DEFUSED")
+
         # Keypad logic unchanged
         if keypad._value == expected_k and not keypad._defused:
             self.yes +=1
             keypad._defused = True
         # tells you the keypad is defused
-        if keypad._defused != True:
-            screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_k})")
-        else:
-            screen._lkeypad.config(text="Keypad: DEFUSED")
+
+
 
         # once my module is completed run these
         if self.solve():
