@@ -13,23 +13,23 @@ class module6(aModule):
         self.name = 'binary addition'
         self.toggles = None
         self.booted = False
-
+        self._a = 0
+        self._b = 0
 
     def random_string_1(self):
-        self._a = random.randint(0, 15)
+        total = random.randint(0, 15)  # total sum must fit in 4 bits
+        self._a = random.randint(0, total)
+        self._b = total - self._a
         return format(self._a, "04b")
 
     def random_string_2(self):
-        max_b = 15 - self._a  # Ensure a + b < 16
-        self._b = random.randint(0, max_b)
         return format(self._b, "04b")
 
     def toggle_solution(self):
-        result = self._a + self._b
-        return format(result, "04b")
+        return format(self._a + self._b, "04b")
 
     def solve(self):
-        if self.toggles._value == self.toggle_solution:
+        if self.toggles._value == self.toggle_solution():
             return True
         return False
 
