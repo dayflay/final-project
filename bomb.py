@@ -140,14 +140,6 @@ def turn_off():
 # MAIN
 ######
 
-# initialize the LCD GUI
-window = Tk()
-gui = Lcd(window)
-
-# initialize the bomb strikes and active phases (i.e., not yet defused)
-strikes_left = NUM_STRIKES
-active_phases = NUM_PHASES
-
 # config difficulty
 global difficulty
 
@@ -168,6 +160,14 @@ continue_button = Button(difficulty_selection_window,
 continue_button.pack(padx=20, pady=20)
 
 difficulty_selection_window.mainloop()
+
+# initialize the LCD GUI
+window = Tk()
+gui = Lcd(window)
+
+# initialize the bomb strikes and active phases (i.e., not yet defused)
+strikes_left = NUM_STRIKES
+active_phases = NUM_PHASES
 
 # "boot" the bomb
 gui.after(1000, bootup)
