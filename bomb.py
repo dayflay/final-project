@@ -78,7 +78,7 @@ def setup_phases():
                                 label="Select Difficulty")
     difficulty_selector.pack(padx=60, pady=20)
 
-    continue_button = ButtonPhase(difficulty_selection_window,
+    continue_button = Button(difficulty_selection_window,
                                   text="Play",
                                   command=lambda: quit_window(difficulty_selection_window))
     continue_button.pack(padx=20, pady=20)
