@@ -30,10 +30,10 @@ class module1(aModule):
 			self.title_label.grid_forget()
 			self.title_label.grid(column=1, row=1)
 
-		if self.points >= 10:
-			self.title_label.grid_forget()
-			self.title_label.destroy()
-
 		if button._pressed != self.last_status:
 			self.last_status = button._pressed
 			self.points += 1
+
+		if self.points >= 10:
+			self.title_label.grid_forget()
+			self.title_label.destroy()
