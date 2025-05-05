@@ -28,6 +28,7 @@ class module5(aModule):
     def update(self, switches, button, wires, keypad, timer, screen):
         if not self.booted and not self.solve():
             screen._lkeypad.grid(row=2, column=1, columnspan=3, sticky="W")
+            global expected_keypad
             expected_keypad = self.K_target()
             self.booted =True
 
