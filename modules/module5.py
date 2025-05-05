@@ -9,6 +9,7 @@ class module5(aModule):
         super().__init__()
         self.name = "Unlock Manifolds"
         self.yes = 0
+        self.booted = False
 
 
 
