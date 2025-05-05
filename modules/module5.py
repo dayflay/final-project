@@ -29,6 +29,7 @@ class module5(aModule):
         if not self.booted and not self.solve():
             screen._lkeypad.grid(row=2, column=1, columnspan=3, sticky="W")
             expected_keypad = self.K_target()
+            self.booted =True
 
         # Keypad logic unchanged
         if keypad._value == expected_keypad and not keypad._defused:
