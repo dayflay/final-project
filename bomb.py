@@ -43,7 +43,7 @@ def bootup(n=0):
 
 def select_difficulty(value):
     global difficulty
-    difficulty = value
+    difficulty = int(value)
 
 def quit_window(target_window: Tk):
     target_window.destroy()
