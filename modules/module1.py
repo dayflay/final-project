@@ -26,7 +26,7 @@ class module1(aModule):
 
 		self.title_label = Label(screen, text=f"Points: {self.points}", font=("Courier New", 18), bg="black", fg="white")
 
-		if self.points != self.last_points:
+		if (self.points != self.last_points) and (self.points < 10):
 			self.title_label.grid_forget()
 			self.title_label.grid(column=1, row=1)
 
@@ -35,5 +35,4 @@ class module1(aModule):
 			self.points += 1
 
 		if self.points >= 10:
-			self.title_label.grid_forget()
-			self.title_label.destroy()
+			self.title_label.grid_remove()
