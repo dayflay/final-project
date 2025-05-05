@@ -32,6 +32,11 @@ class module5(aModule):
         if keypad._value == expected_keypad and not keypad._defused:
             self.solve +=1
             keypad._defused = True
+        # tells you the keypad is defused
+        if keypad._defused != True:
+            screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_keypad})")
+        else:
+            screen._lkeypad.config(text="Keypad: DEFUSED")
 
         # once my module is completed run these
         if self.solve:
