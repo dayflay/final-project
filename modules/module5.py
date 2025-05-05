@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 import random
 
-class aModule(ABC):
+from modules.aModule import aModule
+
+
+class module5(aModule):
     def __init__(self):
         super().__init__()
         self.name = "Unlock Manifolds"
