@@ -25,8 +25,9 @@ class module5(aModule):
         return self.keypad_target
 
     def update(self, switches, button, wires, keypad, timer, screen):
-        screen._lkeypad.grid(row=2, column=1, columnspan=3, sticky="W")
-        expected_keypad = self.K_target()
+        if not self.booted and not self.solve():
+            screen._lkeypad.grid(row=2, column=1, columnspan=3, sticky="W")
+            expected_keypad = self.K_target()
 
         # Keypad logic unchanged
         if keypad._value == expected_keypad and not keypad._defused:
