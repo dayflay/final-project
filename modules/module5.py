@@ -8,12 +8,12 @@ class module5(aModule):
     def __init__(self):
         super().__init__()
         self.name = "Unlock Manifolds"
-        self.solve=0
+        self.yes = 0
 
 
 
     def solve(self)-> bool:
-        if self.solve == 1:
+        if self.yes == 1:
             return True
         else:
             return False
@@ -30,7 +30,7 @@ class module5(aModule):
 
         # Keypad logic unchanged
         if keypad._value == expected_keypad and not keypad._defused:
-            self.solve +=1
+            self.yes +=1
             keypad._defused = True
         # tells you the keypad is defused
         if keypad._defused != True:
@@ -39,5 +39,5 @@ class module5(aModule):
             screen._lkeypad.config(text="Keypad: DEFUSED")
 
         # once my module is completed run these
-        if self.solve:
+        if self.solve():
             self.defused = True
