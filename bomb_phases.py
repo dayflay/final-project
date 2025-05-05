@@ -289,7 +289,7 @@ class Wires(PhaseThread):
             return self._value
 
 # the pushbutton phase
-class Button(PhaseThread):
+class ButtonPhase(PhaseThread):
     def __init__(self, component_state, component_rgb, target, color, timer, name="Button"):
         super().__init__(name, component_state, target)
         # the default value is False/Released

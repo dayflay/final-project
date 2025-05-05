@@ -61,7 +61,7 @@ def setup_phases():
     # setup the jumper wires thread
     wires = Wires(component_wires, wires_target)
     # setup the pushbutton thread
-    button = Button(component_button_state, component_button_RGB, button_target, button_color, timer)
+    button = ButtonPhase(component_button_state, component_button_RGB, button_target, button_color, timer)
     # bind the pushbutton to the LCD GUI so that its LED can be turned off when we quit
     gui.setButton(button)
     # setup the toggle switches thread
@@ -78,9 +78,9 @@ def setup_phases():
                                 label="Select Difficulty")
     difficulty_selector.pack(padx=60, pady=20)
 
-    continue_button = Button(difficulty_selection_window,
-                             text="Play",
-                             command=lambda: quit_window(difficulty_selection_window))
+    continue_button = ButtonPhase(difficulty_selection_window,
+                                  text="Play",
+                                  command=lambda: quit_window(difficulty_selection_window))
     continue_button.pack(padx=20, pady=20)
 
     difficulty_selection_window.mainloop()
