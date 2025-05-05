@@ -67,29 +67,10 @@ def setup_phases():
     # setup the toggle switches thread
     toggles = Toggles(component_toggles, toggles_target)
 
-    difficulty_selection_window = Tk()
-    difficulty_selection_window.attributes("-fullscreen", True)
-
-    difficulty_selector = Scale(difficulty_selection_window,
-                                from_=0, to=10,
-                                orient=HORIZONTAL,
-                                resolution=1,
-                                command=select_difficulty,
-                                label="Select Difficulty")
-    difficulty_selector.pack(padx=60, pady=20)
-
-    continue_button = Button(difficulty_selection_window,
-                                  text="Play",
-                                  command=lambda: quit_window(difficulty_selection_window))
-    continue_button.pack(padx=20, pady=20)
-
-    difficulty_selection_window.mainloop()
-
     # create a queue for the modules to work upon
     queue = []
     possible_mods = ALL_MODULES
     shuffle(possible_mods)
-    difficulty = 3
 
     for i in range(0, difficulty):
         queue.append(possible_mods[i - 1])
@@ -166,6 +147,27 @@ gui = Lcd(window)
 # initialize the bomb strikes and active phases (i.e., not yet defused)
 strikes_left = NUM_STRIKES
 active_phases = NUM_PHASES
+
+# config difficulty
+global difficulty
+
+difficulty_selection_window = Tk()
+difficulty_selection_window.attributes("-fullscreen", True)
+
+difficulty_selector = Scale(difficulty_selection_window,
+                            from_=0, to=10,
+                            orient=HORIZONTAL,
+                            resolution=1,
+                            command=select_difficulty,
+                            label="Pick Difficulty")
+difficulty_selector.pack(padx=60, pady=20)
+
+continue_button = Button(difficulty_selection_window,
+                              text="Play",
+                              command=lambda: quit_window(difficulty_selection_window))
+continue_button.pack(padx=20, pady=20)
+
+difficulty_selection_window.mainloop()
 
 # "boot" the bomb
 gui.after(1000, bootup)
