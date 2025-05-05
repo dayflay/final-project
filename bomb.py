@@ -76,12 +76,12 @@ def setup_phases():
                                 resolution=1,
                                 command=select_difficulty,
                                 label="Select Difficulty")
-    difficulty_selector.pack()
+    difficulty_selector.pack(padx=60, pady=20)
 
     continue_button = Button(difficulty_selection_window,
                              text="Play",
                              command=lambda: quit_window(difficulty_selection_window))
-    continue_button.pack()
+    continue_button.pack(padx=20, pady=20)
 
     difficulty_selection_window.mainloop()
 
