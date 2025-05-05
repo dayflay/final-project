@@ -15,7 +15,7 @@ class module1(aModule):
 
 	def solve(self) -> bool:
 		if self.points >= 10:
-			self.title_label.grid_forget()
+			self.title_label.destroy()
 			return True
 		return False
 
