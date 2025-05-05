@@ -10,6 +10,7 @@ class module1(aModule):
 		super().__init__()
 		self.name = "The Dead Man's Hand"
 		self.points = 0
+		self.last_points = -1
 		self.last_status = None
 		self.title_label = None
 
@@ -22,6 +23,10 @@ class module1(aModule):
 			screen.hide_all()
 
 		self.title_label = Label(screen, text=f"Points: {self.points}", font=("Courier New", 18))
+
+		if self.points != self.last_points:
+			self.title_label.grid_forget()
+			self.title_label.pack()
 
 		if button._pressed != self.last_status:
 			self.last_status = button._pressed
