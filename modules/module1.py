@@ -16,6 +16,7 @@ class module1(aModule):
 	def solve(self) -> bool:
 		if self.points >= 10:
 			self.title_label.grid_forget()
+			self.title_label.destroy()
 			return True
 		return False
 
@@ -28,6 +29,10 @@ class module1(aModule):
 		if self.points != self.last_points:
 			self.title_label.grid_forget()
 			self.title_label.grid(column=1, row=1)
+
+		if self.points >= 10:
+			self.title_label.grid_forget()
+			self.title_label.destroy()
 
 		if button._pressed != self.last_status:
 			self.last_status = button._pressed
