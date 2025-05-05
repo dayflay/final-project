@@ -42,20 +42,20 @@ class module6(aModule):
             #these values are in an if statement because they don't need to be refreshed.
             # constant refreshing causes the screen to flicker
             self.game_name = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 20),
-                                     text="binary addition")
+                                     text="Binary Addition")
             self.game_name.grid(row=2, column=1, pady=10)
 
             self.desc = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
                                      text="solve the binary addition to get the answer to the toggles")
-            self.desc.grid(row=3, column=1, pady=10)
+            self.desc.grid(row=3, column=1)
 
             self.str1 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
                                    text=f"string 1: {self.random_string_1()}")
-            self.str1.grid(row=4, column=1, pady=10)
+            self.str1.grid(row=4, column=1, pady=5)
 
             self.str2 = Label(screen, bg="black", fg="#00ff00", font=("Courier New", 16),
                                    text=f"string 2: {self.random_string_2()}")
-            self.str2.grid(row=4, column=2, pady=10)
+            self.str2.grid(row=4, column=2, pady=5)
 
 
         # resets the gui to the regular bomb gui once the module is solved
