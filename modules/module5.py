@@ -28,17 +28,17 @@ class module5(aModule):
     def update(self, switches, button, wires, keypad, timer, screen):
         if not self.booted and not self.solve():
             screen._lkeypad.grid(row=2, column=1, columnspan=3, sticky="W")
-            global expected_keypad
-            expected_keypad = self.K_target()
+            global expected_k
+            expected_k = self.K_target()
             self.booted =True
 
         # Keypad logic unchanged
-        if keypad._value == expected_keypad and not keypad._defused:
+        if keypad._value == expected_k and not keypad._defused:
             self.yes +=1
             keypad._defused = True
         # tells you the keypad is defused
         if keypad._defused != True:
-            screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_keypad})")
+            screen._lkeypad.config(text=f"Keypad:{keypad._value} (target: {expected_k})")
         else:
             screen._lkeypad.config(text="Keypad: DEFUSED")
 
