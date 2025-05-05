@@ -26,7 +26,7 @@ class module1(aModule):
 
 		if self.points != self.last_points:
 			self.title_label.grid_forget()
-			self.title_label.pack()
+			self.title_label.grid(column=1, row=1)
 
 		if button._pressed != self.last_status:
 			self.last_status = button._pressed
