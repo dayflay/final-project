@@ -41,6 +41,13 @@ def bootup(n=0):
 
     gui._lscroll.grid_forget()
 
+def select_difficulty(value):
+    global difficulty
+    difficulty = value
+
+def quit_window(target_window: Tk):
+    target_window.destroy()
+
 # sets up the phase threads
 def setup_phases():
     global timer, keypad, wires, button, toggles, queue, current_module
@@ -61,13 +68,28 @@ def setup_phases():
     toggles = Toggles(component_toggles, toggles_target)
 
     difficulty_selection_window = Tk()
+    difficulty_selection_window.attributes("-fullscreen", True)
 
+    difficulty_selector = Scale(difficulty_selection_window,
+                                from_=0, to=10,
+                                orient=HORIZONTAL,
+                                resolution=1,
+                                command=select_difficulty,
+                                label="Select Difficulty")
+    difficulty_selector.pack()
+
+    continue_button = Button(difficulty_selection_window,
+                             text="Play",
+                             command=lambda: quit_window(difficulty_selection_window))
+    continue_button.pack()
+
+    difficulty_selection_window.mainloop()
 
     # create a queue for the modules to work upon
     queue = []
     possible_mods = ALL_MODULES
     shuffle(possible_mods)
-    difficulty = 1
+    difficulty = 3
 
     for i in range(0, difficulty):
         queue.append(possible_mods[i - 1])
