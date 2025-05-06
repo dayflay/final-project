@@ -30,6 +30,7 @@ class module5(aModule):
             screen._lkeypad.grid(row=2, column=1, columnspan=3, sticky="W")
             global expected_k
             expected_k = self.K_target()
+            keypad._defused = False
             self.booted =True
 
         if keypad._defused != True:
