@@ -23,11 +23,11 @@ class module1(aModule):
 		if self.last_status == None:
 			screen.hide_all()
 
-		self.title_label = Label(screen, text=f"Points: {self.points}", font=("Courier New", 18), bg="black", fg="white")
+		#self.title_label = Label(screen, text=f"Points: {self.points}", font=("Courier New", 18), bg="black", fg="white")
 
-		if (self.points != self.last_points) and (self.points < 10):
-			self.title_label.grid_forget()
-			self.title_label.grid(column=1, row=1)
+		# if (self.points != self.last_points) and (self.points < 10):
+		# 	self.title_label.grid_forget()
+		# 	self.title_label.grid(column=1, row=1)
 
 		if button._pressed != self.last_status:
 			self.last_status = button._pressed
