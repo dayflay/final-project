@@ -55,6 +55,7 @@ class module4(aModule):
             expected_wires = self.Wtarget()
             expected_switches = self.Starget()
             expected_keypad = self.Ktarget()
+            self.keypad._defused = False
             self.booted = True
 
         # Invert expected target for wires
