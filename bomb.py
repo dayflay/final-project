@@ -113,6 +113,10 @@ def check_phases():
 
     if queue[current_module].solve():
         print("MODULE SOLVED!")
+        toggles._value = "0000"
+        button._value = "Released"
+        wires._value = "00000"
+        keypad._value = ""
         if current_module == (len(queue) - 1): # final module
             pass # YOU WIN!!!
             win_screen()
