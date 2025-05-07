@@ -80,7 +80,7 @@ def setup_phases():
 
     difficulties = {}
 
-    for i in range(1, 10):
+    for i in range(1, 11):
         mods = []
         for j in range(0, i):
             mods.append(choice([module1(), module2(), module3(), module4(), module5(), module6()]))
