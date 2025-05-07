@@ -161,6 +161,7 @@ def turn_off():
 
 # config difficulty
 global difficulty
+difficulty = 1
 
 difficulty_selection_window = Tk()
 difficulty_selection_window.attributes("-fullscreen", True)
