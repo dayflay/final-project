@@ -155,6 +155,7 @@ class module2(aModule):
 			self.last_question = current_question
 
 		self.timing += 1
+		keypad._value = ""
 
 		if keypad._value != "":
 			self.stage += 1
