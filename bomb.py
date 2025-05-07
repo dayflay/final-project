@@ -6,6 +6,7 @@
 
 # import the configs
 from bomb_configs import *
+from modules import *
 # import the phases
 from bomb_phases import *
 # randomization library
@@ -72,15 +73,27 @@ def setup_phases():
     possible_mods = ALL_MODULES
     shuffle(possible_mods)
 
-    for i in range(0, difficulty):
-        queue.append(choice(possible_mods))
+    # for i in range(0, difficulty):
+    #     queue.append(choice([module1(), module2(), module3(), module4(), module5(), module6()]))
 
-    queue = [module1(), module2(), module3(), module4(), module5(), module6()]
+    #queue = [module1(), module2(), module3(), module4(), module5(), module6()]
+
+    difficulties = {}
+
+    for i in range(1, 11):
+        mods = []
+        for j in range(0, i):
+            mods.append(choice([module1(), module2(), module3(), module4(), module5(), module6()]))
+
+        difficulties[i] = mods
+
+    queue = difficulties[difficulty]
 
     global current_module
     current_module = 0
 
-    print(queue)
+    for item in queue:
+        print(item.name)
 
     # start the phase threads
     timer.start()
@@ -111,6 +124,10 @@ def check_phases():
 
     if queue[current_module].solve():
         print("MODULE SOLVED!")
+        toggles._value = "0000"
+        button._value = "Released"
+        wires._value = "00000"
+        keypad._value = ""
         if current_module == (len(queue) - 1): # final module
             pass # YOU WIN!!!
             win_screen()
@@ -144,12 +161,13 @@ def turn_off():
 
 # config difficulty
 global difficulty
+difficulty = 1
 
 difficulty_selection_window = Tk()
 difficulty_selection_window.attributes("-fullscreen", True)
 
 difficulty_selector = Scale(difficulty_selection_window,
-                            from_=0, to=10,
+                            from_=1, to=10,
                             orient=HORIZONTAL,
                             resolution=1,
                             command=select_difficulty,

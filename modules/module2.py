@@ -116,6 +116,8 @@ class module2(aModule):
 		if not self.booted:
 			self.booted = True
 			self.title_label, self.q1, self.q2, self.q3, self.q4 = Label(screen), Label(screen), Label(screen), Label(screen), Label(screen)
+			keypad._value = ""
+			shuffle(self.questions)
 
 			screen.hide_all()
 
