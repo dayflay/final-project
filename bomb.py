@@ -6,6 +6,7 @@
 
 # import the configs
 from bomb_configs import *
+from modules import *
 # import the phases
 from bomb_phases import *
 # randomization library
@@ -73,14 +74,15 @@ def setup_phases():
     shuffle(possible_mods)
 
     for i in range(0, difficulty):
-        queue.append(choice(possible_mods))
+        queue.append(choice([module1(), module2(), module3(), module4(), module5(), module6()]))
 
-    queue = [module1(), module2(), module3(), module4(), module5(), module6()]
+    #queue = [module1(), module2(), module3(), module4(), module5(), module6()]
 
     global current_module
     current_module = 0
 
-    print(queue)
+    for item in queue:
+        print(item.name)
 
     # start the phase threads
     timer.start()
