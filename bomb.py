@@ -166,7 +166,7 @@ difficulty_selection_window = Tk()
 difficulty_selection_window.attributes("-fullscreen", True)
 
 difficulty_selector = Scale(difficulty_selection_window,
-                            from_=0, to=10,
+                            from_=1, to=10,
                             orient=HORIZONTAL,
                             resolution=1,
                             command=select_difficulty,
