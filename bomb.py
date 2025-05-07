@@ -73,10 +73,21 @@ def setup_phases():
     possible_mods = ALL_MODULES
     shuffle(possible_mods)
 
-    for i in range(0, difficulty):
-        queue.append(choice([module1(), module2(), module3(), module4(), module5(), module6()]))
+    # for i in range(0, difficulty):
+    #     queue.append(choice([module1(), module2(), module3(), module4(), module5(), module6()]))
 
     #queue = [module1(), module2(), module3(), module4(), module5(), module6()]
+
+    difficulties = {}
+
+    for i in range(1, 10):
+        mods = []
+        for j in range(0, i):
+            mods.append(choice([module1(), module2(), module3(), module4(), module5(), module6()]))
+
+        difficulties[i] = mods
+
+    queue = difficulties[difficulty]
 
     global current_module
     current_module = 0
